@@ -33,11 +33,11 @@ export default function Intro() {
             <Image
               src="/eu.png"
               alt="eu"
-              width="300"
-              height="300"
+              width="250"
+              height="250"
               quality="95"
               priority={true}
-              className="h-30 w-30 rounded-full object-cover border-[0.35rem] border-white shadow-xl"
+              className="h-30 w-30 rounded-full object-cover border-[0.15rem] border-white shadow-xl"
             />
           </motion.div>
 
@@ -52,7 +52,7 @@ export default function Intro() {
               duration: 0.7,
             }}
           >
-            👋
+            
           </motion.span>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function Intro() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        Data scientist by day, boxing chessmaster by night, I juggle Python codes at Nokia while mastering German and diving deep into analytics adventures!
+        Data scientist by day, boxing chessmaster by night. Passionate about making every single second count by exploring the world's hidden gems.
       </motion.h1>
 
       <motion.div
