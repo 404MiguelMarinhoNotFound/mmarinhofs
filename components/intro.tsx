@@ -75,34 +75,37 @@ export default function Intro() {
         Data scientist by day, boxing chessmaster by night. Passionate about making every single second count by exploring the world's hidden gems.
       </motion.h1>
       */}
-<div className="grid grid-cols-1 sm:grid-cols-12">
+<div className="grid grid-cols-20 sm:grid-cols-12">
 
   <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             className="col-span-8 place-self-right text-center sm:text-center justify-self-start"
           >
-            <h1 className="text-white mb-1 text-1xl sm:text-1xl lg:text-2xl lg:leading-normal font-extrabold">
-            <span className="text-gray-100 bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
+            <h1 className="text-gray-150 mb-2 text-2xl sm:text-2xl lg:text-1xl lg:leading-normal font-extrabold">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-pulse opacity-80">
                 Hello, I&apos;m{" "}
               </span>
               
               <br></br>
               <TypeAnimation
                 sequence={[
-                  "Data Scientist",
+                  "Miguel👋",
+                  2400,
+                  "Data Scientist📊",
                   1000,
-                  "Machine learning expert",
+                  "Machine learning expert🤖",
                   1000,
-                  "literally massive cock",
+                  "literally massive cock🐓",
                   1000,
-                  "Solutions Engineer",
+                  "Solutions Engineer🔧",
                   1000,
+                  "Ready for any challenge💪",
+                  10000,
                 ]}
                 wrapper="span"
                 speed={50}
-                style={{ fontSize: '2em', display: 'inline-block' }}
                 repeat={Infinity}
               />
             </h1>
