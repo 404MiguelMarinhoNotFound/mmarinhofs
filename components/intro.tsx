@@ -9,6 +9,8 @@ import { HiDownload } from "react-icons/hi";
 import { FaGithubSquare } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
 import { useActiveSectionContext } from "@/context/active-section-context";
+import { TypeAnimation } from "react-type-animation";
+
 
 export default function Intro() {
   const { ref } = useSectionInView("Home", 0.5);
@@ -20,29 +22,31 @@ export default function Intro() {
       id="home"
       className="mb-28 max-w-[50rem] text-center sm:mb-0 scroll-mt-[100rem]"
     >
+      
       <div className="flex items-center justify-center">
         <div className="relative">
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              type: "tween",
-              duration: 0.2,
-            }}
-          >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="col-span-4 place-self-right mt-4 lg:mt-0"
+        >
             <Image
               src="/eu.png"
               alt="eu"
-              width="250"
-              height="250"
+              width={300}
+              height={300}
               quality="95"
               priority={true}
-              className="h-30 w-30 rounded-full object-cover border-[0.15rem] border-white shadow-xl"
-            />
+              className="
+               rounded-full object-cover border-4  
+              border-transparent shadow-2xl hover:shadow-3xl transition-shadow 
+              duration-300 ease-in-out bg-gradient-to-r from-lightblue-400 via-purple-400 to-teal-400 hover:scale-105 transform"
+              />
           </motion.div>
 
           <motion.span
-            className="absolute bottom-0 right-0 text-4xl"
+            className="absolute bottom-0 center-0 text-2xl"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -57,14 +61,54 @@ export default function Intro() {
         </div>
       </div>
 
+
+      
+      {/*     
       <motion.h1
-        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-4xl"
+        className="mb-10 mt-4 px-4 text-2xl font-medium !leading-[1.5] sm:text-2xl "
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
       >
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
+              Hello there, I&apos;m{" "}
+            </span>
         Data scientist by day, boxing chessmaster by night. Passionate about making every single second count by exploring the world's hidden gems.
       </motion.h1>
+      */}
+<div className="grid grid-cols-1 sm:grid-cols-12">
 
+  <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="col-span-8 place-self-right text-center sm:text-center justify-self-start"
+          >
+            <h1 className="text-white mb-1 text-1xl sm:text-1xl lg:text-2xl lg:leading-normal font-extrabold">
+            <span className="text-gray-100 bg-clip-text bg-gradient-to-r from-primary-400 to-secondary-600">
+                Hello, I&apos;m{" "}
+              </span>
+              
+              <br></br>
+              <TypeAnimation
+                sequence={[
+                  "Data Scientist",
+                  1000,
+                  "Machine learning expert",
+                  1000,
+                  "literally massive cock",
+                  1000,
+                  "Solutions Engineer",
+                  1000,
+                ]}
+                wrapper="span"
+                speed={50}
+                style={{ fontSize: '2em', display: 'inline-block' }}
+                repeat={Infinity}
+              />
+            </h1>
+
+          </motion.div>
+      </div>
       <motion.div
         className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
         initial={{ opacity: 0, y: 100 }}
