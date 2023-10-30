@@ -93,13 +93,12 @@ export default function Intro() {
                 sequence={[
                   "Miguel👋",
                   2400,
-                  "Data Scientist📊",
+                  "a Data Scientist📊",
                   1000,
-                  "Machine learning expert🤖",
+                  "a Machine learning expert🤖",
                   1000,
-                  "literally massive cock🐓",
-                  1000,
-                  "Solutions Engineer🔧",
+                 
+                  "a Solutions Engineer🔧",
                   1000,
                   "Ready for any challenge💪",
                   10000,
