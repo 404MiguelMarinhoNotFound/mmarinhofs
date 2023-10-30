@@ -41,7 +41,7 @@ export default function Project({
     >
       <section className="bg-gray-100 max-w-[42rem] border border-black/5 rounded-lg overflow-hidden sm:pr-8 relative sm:h-[20rem]
        hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
-        <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[50%] flex flex-col h-full sm:group-even:ml-[18rem]">
+        <div className="pt-4 pb-7 px-5 sm:pl-10 sm:pr-2 sm:pt-10 sm:max-w-[60%] flex flex-col h-full sm:group-even:ml-[18rem] justify-center items-center">
           <h3 className="text-2xl font-bold">{title}</h3>
           <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">
             {description}
@@ -58,9 +58,7 @@ export default function Project({
               </li>
             ))}
           </ul>
-          {showButton && 
-          <button           className="bg-white p-4 text-gray-700 flex items-center gap-2 text-[1.35rem] rounded-full focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-          >Hi</button>} {/* Conditional Button */}
+          
 
           
         </div>
@@ -85,6 +83,18 @@ export default function Project({
 
 
       </section>
-    </motion.div>
-  );
+      
+      <div className="button-wrapper">
+    {showButton && 
+      <a         
+      className="bg-white p-4 rounded-full flex items-center justify-center w-12 h-12 focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
+      href="/Thesis.pdf"
+    download>
+      <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
+      </a>} {/* Conditional Button */}
+      
+      </div>
+      </motion.div>
+
+        );
 }

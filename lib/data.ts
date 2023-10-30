@@ -62,10 +62,10 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "DL for Melanoma Classification",
+    title: "Thesis on Deep Learning for Melanoma Classification",
     description:
-      "Deployed model on Azure for melanoma diagnosis, enabling real-time, SMS-based results",
-    tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure"],
+      "Deployed DL model on Azure for melanoma diagnosis, enabling real-time, SMS-based results",
+    tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure", "twilio"],
     
     imageUrl: thesImg,
     showButton: true, // Optional button
