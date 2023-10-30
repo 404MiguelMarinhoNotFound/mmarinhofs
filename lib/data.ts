@@ -2,7 +2,7 @@ import React from "react";
 import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
-import corpcommentImg from "@/public/corpcomment.png";
+import thesImg from "@/public/thes.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 
@@ -62,11 +62,14 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "CorpComment",
+    title: "DL for Melanoma Classification",
     description:
-      "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
-    tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
-    imageUrl: corpcommentImg,
+      "Deployed model on Azure for melanoma diagnosis, enabling real-time, SMS-based results",
+    tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure"],
+    
+    imageUrl: thesImg,
+    showButton: true, // Optional button
+
   },
   {
     title: "rmtDev",

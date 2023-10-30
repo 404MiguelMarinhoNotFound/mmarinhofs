@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "@/context/theme-context";
 import React from "react";
 import { BsLinkedin, BsMoon, BsSun } from "react-icons/bs";
 import MouseEvent from "react";
