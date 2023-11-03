@@ -75,18 +75,23 @@ export default function Intro() {
         Data scientist by day, boxing chessmaster by night. Passionate about making every single second count by exploring the world's hidden gems.
       </motion.h1>
       */}
-<div className="grid grid-cols-20 sm:grid-cols-12">
-
+<div className="flex justify-center items-center h-full">
+<h1 className="text-gray-150 mb-100 mt-5 text-2xl sm:text-3xl lg:text-3xl lg:leading-normal font-extrabold self-center">
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-pulse opacity-90">
+      Hello, I&apos;m{" "}
+    </span>
+  </h1>
+  </div>
+              <div className="flex justify-center items-center h-full">
+              <br></br>
   <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="col-span-8 place-self-right text-center sm:text-center justify-self-start"
+            transition={{ duration: 1.5 }}
+            className="col-span-12 place-self-center text-center sm:text-center justify-self-start"
           >
-            <h1 className="text-gray-150 mb-2 text-2xl sm:text-2xl lg:text-1xl lg:leading-normal font-extrabold">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 animate-pulse opacity-80">
-                Hello, I&apos;m{" "}
-              </span>
+            <h1 className="text-gray-150 mb-2 text-3xl sm:text-3xl lg:text-3xl lg:leading-normal font-extrabold">
+            
               
               <br></br>
               <TypeAnimation
@@ -95,7 +100,7 @@ export default function Intro() {
                   2400,
                   "a Data Scientist📊",
                   1000,
-                  "a Machine learning expert🤖",
+                  "a Machine learning expert🧠🤖",
                   1000,
                  
                   "a Solutions Engineer🔧",
@@ -119,24 +124,14 @@ export default function Intro() {
           delay: 0.1,
         }}
       >
-        <Link
-          href="#contact"
-          className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition"
-          onClick={() => {
-            setActiveSection("Contact");
-            setTimeOfLastClick(Date.now());
-          }}
-        >
-          Contact me here{" "}
-          <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
-        </Link>
+        
 
         <a
-          className="group bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
+          className="group bg-white px-5 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
           href="/CV.pdf"
           download
         >
-          Download CV{" "}
+          CV{" "}
           <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
         </a>
 
