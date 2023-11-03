@@ -87,7 +87,7 @@ export const projectsData = [
     imageUrl: wordanalyticsImg,
     showButton: true,
   },
-] as const;
+];
 
 export const skillsData = [
   "HTML",
