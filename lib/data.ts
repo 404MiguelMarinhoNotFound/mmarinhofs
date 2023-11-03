@@ -67,7 +67,7 @@ export const projectsData = [
       "Deployed DL model on Azure for melanoma diagnosis, enabling real-time, SMS-based results",
     tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure", "twilio"],
     
-    imageUrl: thesImg,
+    imageUrl: thesImg.src,
     showButton: true, // Optional button
 
   },
@@ -76,7 +76,7 @@ export const projectsData = [
     description:
       "Job board for remote developer jobs. I was the front-end developer. It has features like filtering, sorting and pagination.",
     tags: ["React", "TypeScript", "Next.js", "Tailwind", "Redux"],
-    imageUrl: rmtdevImg,
+    imageUrl: rmtdevImg.src,
     showButton: true,
   },
   {
@@ -84,7 +84,7 @@ export const projectsData = [
     description:
       "A public web app for quick analytics on text. It shows word count, character count and social media post limits.",
     tags: ["React", "Next.js", "SQL", "Tailwind", "Framer"],
-    imageUrl: wordanalyticsImg,
+    imageUrl: wordanalyticsImg.src,
     showButton: true,
   },
 ];
