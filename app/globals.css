@@ -17,3 +17,13 @@ html.dark {
   flex-shrink: 0; /* Prevent the button from shrinking */
   align-self: auto; /* Reset any align-items set by the parent */
 }
+
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}

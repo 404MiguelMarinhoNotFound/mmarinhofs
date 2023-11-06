@@ -3,6 +3,7 @@ import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import thesImg from "@/public/thes.png";
+import delta from "@/public/delta.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
 
@@ -70,15 +71,22 @@ export const projectsData = [
     imageUrl: thesImg.src,
     showButton: true, // Optional button
 
+  },{
+    title: "Server Comparator ",
+    description:
+      "Scaled comparator to accurately pinpoint table mismatches cross servers in DataBase migration project",
+    tags: ["Python", "pyodbc", "datacompy",  "Azure", "Oracle"],
+    imageUrl: delta.src,
+
   },
   
 ];
 
 export const skillsData = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
+  "Python",
+  "R",
+  "SQL",
+  "Typescript",
   "React",
   "Next.js",
   "Node.js",
