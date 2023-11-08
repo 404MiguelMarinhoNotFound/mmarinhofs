@@ -7,7 +7,6 @@ import ThemeSwitch from "@/components/theme-switch";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
 import React from 'react';
-import {useState,useEffect} from 'react'
 import SkewLoader from "react-spinners/ClipLoader";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,13 +21,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) { 
- const [loading,setLoading]=useState(false) 
- useEffect(()=>{
-  setLoading(true)
-  setTimeout(() => {
-    setLoading(false)
-  }, 5000);
- },[])
+
 
   return (
    
