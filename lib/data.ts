@@ -36,28 +36,44 @@ export const links = [
 
 export const experiencesData = [
   {
-    title: "Graduated bootcamp",
-    location: "Miami, FL",
+    title: "PC Assembly",
+    location: "Lisbon, Portugal",
     description:
-      "I graduated after 6 months of studying. I immediately found a job as a front-end developer.",
+      "I built my own computer, why is this here? It was fun.",
     icon: React.createElement(LuGraduationCap),
-    date: "2019",
+    date: "2017",
   },
   {
-    title: "Front-End Developer",
-    location: "Orlando, FL",
+    title: "Bsc in Economics",
+    location: "Nova Lisbon SBE",
     description:
-      "I worked as a front-end developer for 2 years in 1 job and 1 year in another job. I also upskilled to the full stack.",
+      "I graduated with an Economics bachelors",
+    icon: React.createElement(LuGraduationCap),
+    date: "2017-2021",
+  },
+  {
+    title: "Master of Analytics Specialization in Data Science",
+    location: "Católica Lisbon SBE",
+    description:
+      "I graduated with a data science applied to business masters, where I truly fell passionate to the arts of Data Science, more specifically Machine Learning",
+    icon: React.createElement(LuGraduationCap),
+    date: "2021-2023",
+  },
+  {
+    title: "Data Science Trainee",
+    location: "NOKIA",
+    description:
+      "Rotational program-- falar das 4 fases",
     icon: React.createElement(CgWorkAlt),
-    date: "2019 - 2021",
+    date: "2022 - 2023",
   },
   {
-    title: "Full-Stack Developer",
-    location: "Houston, TX",
-    description:
-      "I'm now a full-stack developer working as a freelancer. My stack includes React, Next.js, TypeScript, Tailwind, Prisma and MongoDB. I'm open to full-time opportunities.",
+    title: "Data Engineer",
+    location: "NOKIA",
+    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions",
+    
     icon: React.createElement(FaReact),
-    date: "2021 - present",
+    date: "2023 - present",
   },
 ] as const;
 
@@ -65,7 +81,7 @@ export const projectsData = [
   {
     title: "Thesis on Deep Learning for Melanoma Classification",
     description:
-      "Deployed DL model on Azure for melanoma diagnosis, enabling real-time, SMS-based results",
+      "Deployed DL model on Azure for melanoma diagnosis, enabling real-time, SMS-based cancer prognosis",
     tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure", "twilio"],
     
     imageUrl: thesImg.src,
@@ -74,8 +90,8 @@ export const projectsData = [
   },{
     title: "Server Comparator ",
     description:
-      "Scaled comparator to accurately pinpoint table mismatches cross servers in DataBase migration project",
-    tags: ["Python", "pyodbc", "datacompy",  "Azure", "Oracle"],
+      "Scaled comparator to accurately pinpoint table mismatches across servers in DataBase migration project",
+    tags: ["Python", "Pyodbc", "Datacompy",  "Azure", "Oracle"],
     imageUrl: delta.src,
 
   },
@@ -84,22 +100,23 @@ export const projectsData = [
 
 export const skillsData = [
   "Python",
+  "Machine Learning Algorithms",
+  "Deep Learning",
+  "Scikit-Learn",
+  "TensorFlow",
+  "Keras",
+  "Pandas",
+  "NumPy",
+  "Matplotlib",
+  "Seaborn",
+  "Dask",
   "R",
-  "SQL",
-  "Typescript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "Git",
-  "Tailwind",
-  "Prisma",
-  "MongoDB",
-  "Redux",
-  "GraphQL",
-  "Apollo",
-  "Express",
-  "PostgreSQL",
-  "Python",
-  "Django",
-  "Framer Motion",
+  "SQL", 
+  "Hadoop",
+  "Spark",
+  "Tableau",
+  "SSMS",
+  "Oracle",
+  "Azure Devops",
+
 ] as const;
