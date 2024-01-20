@@ -31,6 +31,7 @@ export default function Intro() {
           transition={{ duration: 0.5 }}
           className="col-span-4 place-self-right mt-4 lg:mt-0"
         >
+          
             <Image
               src="/eu.png"
               alt="eu"
@@ -93,7 +94,7 @@ export default function Intro() {
             <h1 className="text-gray-150 mb-2 text-3xl sm:text-3xl lg:text-3xl lg:leading-normal font-extrabold">
             
               
-              <br></br>
+              
               <TypeAnimation
                 sequence={[
                   "Miguel👋",
@@ -112,9 +113,11 @@ export default function Intro() {
                 speed={50}
                 repeat={Infinity}
               />
+              
             </h1>
 
           </motion.div>
+          
       </div>
       <motion.div
         className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
@@ -125,7 +128,7 @@ export default function Intro() {
         }}
       >
         
-
+<br></br>
         <a
           className="group bg-white px-5 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
           href="/CV.pdf"

@@ -63,7 +63,7 @@ export const experiencesData = [
     title: "Data Science Trainee",
     location: "NOKIA",
     description:
-      "Rotational program-- falar das 4 fases",
+      "Rotational program-- falar das 4 fasess",
     icon: React.createElement(CgWorkAlt),
     date: "2022 - 2023",
   },
