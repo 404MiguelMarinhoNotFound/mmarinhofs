@@ -67,8 +67,35 @@ export const experiencesData = [
     icon: React.createElement(CgWorkAlt),
     date: "2022 - 2023",
   },
+  ,
   {
-    title: "Data Engineer",
+    title: "Data Science Trainee",
+    location: "NOKIA",
+    description:
+      "Rotational program-- falar das 4 fasess",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 - 2023",
+  },
+  ,
+  {
+    title: "Data Science Trainee",
+    location: "NOKIA",
+    description:
+      "Rotational program-- falar das 4 fasess",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 - 2023",
+  },
+  ,
+  {
+    title: "Data Science Trainee",
+    location: "NOKIA",
+    description:
+      "Rotational program-- falar das 4 fasess",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 - 2023",
+  },
+  {
+    title: "Data Scientist/Engineer",
     location: "NOKIA",
     description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions",
     
