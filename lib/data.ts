@@ -67,7 +67,7 @@ export const experiencesData = [
     icon: React.createElement(CgWorkAlt),
     date: "2022 - 2023",
   },
-  ,
+  
   {
     title: "Data Science Trainee",
     location: "NOKIA",
@@ -76,7 +76,7 @@ export const experiencesData = [
     icon: React.createElement(CgWorkAlt),
     date: "2022 - 2023",
   },
-  ,
+  
   {
     title: "Data Science Trainee",
     location: "NOKIA",
@@ -85,7 +85,7 @@ export const experiencesData = [
     icon: React.createElement(CgWorkAlt),
     date: "2022 - 2023",
   },
-  ,
+  
   {
     title: "Data Science Trainee",
     location: "NOKIA",
