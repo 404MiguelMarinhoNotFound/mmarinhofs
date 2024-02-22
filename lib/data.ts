@@ -39,7 +39,7 @@ export const experiencesData = [
     title: "PC Assembly",
     location: "Lisbon, Portugal",
     description:
-      "I built my own computer, why is this here? It was fun.",
+      "I built my own computer from scratch for fun!",
     icon: React.createElement(LuGraduationCap),
     date: "2017",
   },
