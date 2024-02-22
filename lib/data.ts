@@ -60,7 +60,7 @@ export const experiencesData = [
     date: "2021-2023",
   },
   {
-    title: "Data Science Trainee",
+    title: "Data Science Trainee in Rotational Program",
     location: "NOKIA",
     description:
       "Rotational program-- falar das 4 fasess",
