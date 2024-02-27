@@ -19,18 +19,31 @@ export default function About() {
     >
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
-      
-  As a <span className="font-medium">data science professional</span> with an international background, I am fluent in <span className="font-medium">Portuguese, English, and French</span>, and currently enhancing my skills in German. My academic journey led me to complete a Master's degree in <span className="font-medium">Business Analytics</span> with a focus on Data Science at Católica SBE. During this time, I authored a thesis centered on using <span className="italic">Deep Learning algorithms for melanoma classification</span>. Prior to this, I earned a Bachelor's degree in Economics from Nova SBE. 
+
+      I began my journey in the vibrant landscapes of Luxembourg, ventured to Portugal at the tender age of 17, and have since carved out a niche for myself in the world of data, balancing the dual roles of a data engineer & scientist.  </p>
+
+  <p>
+  But there’s more to life than numbers. I’m also a boxing enthusiast. 
+  Everyday, you’ll find me training hard, dreaming big about clinching that national title.
+   It’s tough, sweaty work, but it's the kind of challenge that spices up life.
+
 </p>
 
-<p>
-  Professionally, I am associated with <span className="font-medium">Nokia</span> in a data science role. My work encompasses a wide array of domains including <span className="font-medium">machine learning, big data technologies, and data engineering solutions</span>. My toolkit comprises expertise in <span className="font-medium">Python, R, SQL, and Tableau</span>, mainly on platforms like Azure and Celonis. 
+  <p>
+  Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. Plus, it's cool to think a few moves ahead, both on the board and in life.
+  </p>
+
+  <p>
+  Growing up in the cultural mosaic that is Luxembourg  ignited my curiosity for exploring other cultures and languages.
+   It’s like collecting pieces of the world, learning something new from each one. This love for diversity has made me pretty open-minded. 
+    wI’m all about seeing things from different angles, embracing new ideas, and just soaking in the richness of this vast, colorful world.
+
 </p>
 
-<p>
-  <span className="italic">Outside the realm of data</span>, I am an amateur boxer and have a keen interest in chess. These pursuits reflect my dedication to personal growth, mirroring my passion for analytics. I am always excited about the convergence of data with real-world applications and the endless learning it offers.
-</p>
+  <p>
+  So, that’s me in a nutshell. If you’re into data, have a passion for cultures, enjoy a good sports story, or are just up for sharing life’s quirky lessons, drop me a line. I’m always up for connecting and exchanging cool ideas.
 
+</p>
 
     </motion.section>
   );

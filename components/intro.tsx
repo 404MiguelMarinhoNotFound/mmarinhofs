@@ -97,7 +97,7 @@ export default function Intro() {
               
               <TypeAnimation
                 sequence={[
-                  "Miguel👋",
+                  "Miguel👋 ",
                   2400,
                   "a Data Scientist📊",
                   1000,
