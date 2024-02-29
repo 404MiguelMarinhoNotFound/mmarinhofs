@@ -3,6 +3,7 @@ import { CgWorkAlt } from "react-icons/cg";
 import { FaReact } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import thesImg from "@/public/thes.png";
+import deia from "@/public/deia.png";
 import delta from "@/public/delta.png";
 import rmtdevImg from "@/public/rmtdev.png";
 import wordanalyticsImg from "@/public/wordanalytics.png";
@@ -121,7 +122,14 @@ export const projectsData = [
     imageUrl: delta.src,
 
   },
-  
+  {
+    title: "DEIA",
+    description:
+      "Fine-Tuned LLM on custom database containing metadata of data objects, designed to enhance comprehension of data object complexity",
+    tags: ["Python", "Transformers", "huggingface",  "Databricks", "MLFlow"],
+    imageUrl: deia.src,
+
+  },
 ];
 
 export const skillsData = [
