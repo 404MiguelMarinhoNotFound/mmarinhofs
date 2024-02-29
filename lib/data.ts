@@ -35,21 +35,47 @@ export const links = [
 ] as const;
 
 export const experiencesData = [
+
   {
-    title: "PC Assembly",
-    location: "Lisbon, Portugal",
-    description:
-      "I built my own computer from scratch for fun!",
-    icon: React.createElement(LuGraduationCap),
-    date: "2017",
+    title: "Data Scientist/Engineer",
+    location: "NOKIA",
+    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions",
+    
+    icon: React.createElement(FaReact),
+    date: "2023 Sep - Present",
   },
   {
-    title: "Bachelors in Economics",
-    location: "Nova Lisbon SBE",
+    title: "Data Science Trainee in Rotational Program",
+    location: "NOKIA - Financial Planning and Reporting Analytics",
     description:
-      "I graduated with an Economics bachelors",
-    icon: React.createElement(LuGraduationCap),
-    date: "2017-2021",
+      "Lead in optimizing SAP report generation by recreating complex reports using advanced SQL queries on a centralized data platform with ingested SAP tables, significantly reducing processing time. Python scripts for automated validation of reports. ",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 Jun - 2023 Sep",
+  },
+  {
+    title: "Data Science Trainee in Rotational Program",
+    location: "NOKIA - Data Semantics Team",
+    description:
+      "Contributed on data migration tasks from on-premises server to Azure cloud by doing User Acceptance Testing (UAT) with SQL. Lead in developing a Python-based Excel File Comparator program, ensuring data consistency between on-premise servers and Azure cloud by precisely locating and reporting any discrepancies. ",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 Mar - 2023 May",
+  },
+
+  {
+    title: "Data Science Trainee in Rotational Program",
+    location: "NOKIA - Process Mining Team ",
+    description:
+      "Automating daily data extraction and API updates from Celonis API using Azure Function Apps. Automated extraction, processing, and ingestion of Celonis audit logs API data into data pools using Python. Developed star schema, associated tables (SQL), & dashboard.  Classification project using Celonis Machine Learning Workbench: Predict discount classification: Descriptive analysis using Matplotlib, coded using skicit-learn  ",
+    icon: React.createElement(CgWorkAlt),
+    date: "2022 Dec - 2023 Feb",
+  },
+  {
+    title: "Data Science Trainee in Rotational Program",
+    location: "NOKIA - Supply Chain Advanced Analytics Team  ",
+    description:
+"   Involved in classification project using Azure Cloud Machine Learning Studio to accurately predict on-time delivery of supply chain products. Migrated data pipelines from on-premises databases to Azure SQL Database, leveraging Azure Data Factory."
+    ,icon: React.createElement(CgWorkAlt),
+    date: "2022 Sep - 2022 Dec",
   },
   {
     title: "Master of Analytics Specialization in Data Science",
@@ -60,47 +86,20 @@ export const experiencesData = [
     date: "2021-2023",
   },
   {
-    title: "Data Science Trainee in Rotational Program",
-    location: "NOKIA - Supply Chain Advanced Analytics Team  ",
+    title: "Bachelors in Economics",
+    location: "Nova Lisbon SBE",
     description:
-"   Involved in classification project using Azure Cloud Machine Learning Studio to accurately predict on-time delivery of supply chain products. Migrated data pipelines from on-premises databases to Azure SQL Database, leveraging Azure Data Factory."
-    ,icon: React.createElement(CgWorkAlt),
-    date: "2022 Sep - 2022 Dec",
-  },
-  
-  {
-    title: "Data Science Trainee in Rotational Program",
-    location: "NOKIA - Process Mining Team ",
-    description:
-      "Automating daily data extraction and API updates from Celonis API using Azure Function Apps. Automated extraction, processing, and ingestion of Celonis audit logs API data into data pools using Python. Developed star schema, associated tables (SQL), & dashboard.  Classification project using Celonis Machine Learning Workbench: Predict discount classification: Descriptive analysis using Matplotlib, coded using skicit-learn  ",
-    icon: React.createElement(CgWorkAlt),
-    date: "2022 Dec - 2023 Feb",
-  },
-  
-  {
-    title: "Data Science Trainee in Rotational Program",
-    location: "NOKIA - Data Semantics Team",
-    description:
-      "Contributed on data migration tasks from on-premises server to Azure cloud by doing User Acceptance Testing (UAT) with SQL. Lead in developing a Python-based Excel File Comparator program, ensuring data consistency between on-premise servers and Azure cloud by precisely locating and reporting any discrepancies. ",
-    icon: React.createElement(CgWorkAlt),
-    date: "2022 Mar - 2023 May",
-  },
-  
-  {
-    title: "Data Science Trainee in Rotational Program",
-    location: "NOKIA - Financial Planning and Reporting Analytics",
-    description:
-      "Lead in optimizing SAP report generation by recreating complex reports using advanced SQL queries on a centralized data platform with ingested SAP tables, significantly reducing processing time. Python scripts for automated validation of reports. ",
-    icon: React.createElement(CgWorkAlt),
-    date: "2022 Jun - 2023 Sep",
+      "I graduated with an Economics bachelors",
+    icon: React.createElement(LuGraduationCap),
+    date: "2017-2021",
   },
   {
-    title: "Data Scientist/Engineer",
-    location: "NOKIA",
-    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions",
-    
-    icon: React.createElement(FaReact),
-    date: "2023 Sep - Present",
+    title: "PC Assembly",
+    location: "Lisbon, Portugal",
+    description:
+      "I built my own computer from scratch for fun!",
+    icon: React.createElement(LuGraduationCap),
+    date: "2017",
   },
 ] as const;
 
