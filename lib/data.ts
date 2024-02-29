@@ -59,7 +59,7 @@ export const experiencesData = [
     description:
       "Contributed on data migration tasks from on-premises server to Azure cloud by doing User Acceptance Testing (UAT) with SQL. Lead in developing a Python-based Excel File Comparator program, ensuring data consistency between on-premise servers and Azure cloud by precisely locating and reporting any discrepancies. ",
     icon: React.createElement(CgWorkAlt),
-    date: "2022 Mar - 2023 May",
+    date: "2022 Mar - 2023 Jun",
   },
 
   {
@@ -68,7 +68,7 @@ export const experiencesData = [
     description:
       "Automating daily data extraction and API updates from Celonis API using Azure Function Apps. Automated extraction, processing, and ingestion of Celonis audit logs API data into data pools using Python. Developed star schema, associated tables (SQL), & dashboard.  Classification project using Celonis Machine Learning Workbench: Predict discount classification: Descriptive analysis using Matplotlib, coded using skicit-learn  ",
     icon: React.createElement(CgWorkAlt),
-    date: "2022 Dec - 2023 Feb",
+    date: "2022 Dec - 2023 Mar",
   },
   {
     title: "Data Science Trainee in Rotational Program",
