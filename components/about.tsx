@@ -23,18 +23,12 @@ export default function About() {
       I began my journey in the ever so small country of Luxembourg & moved to Portugal at the tender age of 17 to pursue my studies.
       Ever since, carved out a niche for myself in the world of data, balancing the dual roles of a  data engineer & scientist.  </p>
 
-  <p>
-  But there’s more to life than numbers. I’m also a boxing enthusiast. 
-  Everyday, you’ll find me training hard, dreaming big about clinching that national title.
-   It’s tough, hard work, but it's the kind of challenge pushes me and my body to the next level.
-
+  <p> 
+I've always been a guy of odd interests. When I was younger I was really passionate about martial arts and computers.
+This inherently led me to building my own computer and joining my first boxing gym. 
+Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2024, and play chess (?)
+Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing.
 </p>
-
-  <p>
-  Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. 
-  Plus, it's cool to think a few moves ahead, both on the board and in life.
-  </p>
-
   <p>
   Growing up in the multi-cultural environment that is Luxembourg  ignited my curiosity for exploring other cultures and languages.
    It’s like collecting pieces of the world, learning something new from each one. 
