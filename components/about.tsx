@@ -26,10 +26,14 @@ export default function About() {
   <p> 
 I've always been a guy of odd interests. When I was younger I was really passionate about martial arts and computers.
 This inherently led me to building my own computer and joining my first boxing gym. 
-Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2024, and play chess (?)
-Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing.
 </p>
   <p>
+Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2024, and also ... play chess.
+Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. Some people find it odd, I find it complementary.
+</p>
+  <p>
+Something that also defines me is my passion for meeting different people. Probably because 
+
   Growing up in the multi-cultural environment that is Luxembourg  ignited my curiosity for exploring other cultures and languages.
    It’s like collecting pieces of the world, learning something new from each one. 
    This love for diversity has made me pretty open-minded and really incited my passion for travelling.
