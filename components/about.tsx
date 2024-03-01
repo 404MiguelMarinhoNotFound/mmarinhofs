@@ -20,7 +20,7 @@ export default function About() {
       <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
 
-      I began my journey in the ever so small country of Luxembourg & moved to Portugal at the tender age of 17 to pursue my studies.
+      I began my journey in the ever so small country of Luxembourg & moved to Portugal at the age of 17 to pursue my studies.
       Ever since, carved out a niche for myself in the world of data, balancing the dual roles of a  data engineer & scientist.  </p>
 
   <p> 
@@ -32,20 +32,17 @@ Fast forward some years and I box on an amateur level with aspirations of becomi
 Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. Some people find it odd, I find it complementary.
 </p>
   <p>
-Something that also defines me is my passion for meeting different people. Probably because 
+Something that also defines me is my passion for meeting new & different people. 
+Probably because I was born in Luxembourg and always surrounded by different cultures and languages. 
+Regardless, this type of passion has made me pretty open-minded and really incited my passion for travelling.
 
-  Growing up in the multi-cultural environment that is Luxembourg  ignited my curiosity for exploring other cultures and languages.
-   It’s like collecting pieces of the world, learning something new from each one. 
-   This love for diversity has made me pretty open-minded and really incited my passion for travelling.
 
-    
+
 
 </p>
 
   <p>
-  So, that’s me in a nutshell. 
-  If you’re into data, have a passion for cultures, enjoy a good sports story, or are just up for sharing life’s quirky lessons, drop me a line. 
-  I’m always up for connecting and exchanging cool ideas.
+  Reach out!
 
 </p>
 
