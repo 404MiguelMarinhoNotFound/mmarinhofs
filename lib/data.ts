@@ -123,7 +123,7 @@ export const projectsData = [
 
   },
   {
-    title: "DEIA",
+    title: "LLM",
     description:
       "Fine-Tuned LLM on custom database containing metadata of data objects, designed to enhance comprehension of data object complexity",
     tags: ["Python", "Transformers", "huggingface",  "Databricks", "MLFlow"],
@@ -134,23 +134,25 @@ export const projectsData = [
 
 export const skillsData = [
   "Python",
+  "R",
+  "SQL",
+  "PySpark",
   "Machine Learning Algorithms",
   "Deep Learning",
   "Scikit-Learn",
   "TensorFlow",
   "Keras",
+  "transformers",
+  "huggingface",
   "Pandas",
   "NumPy",
   "Matplotlib",
   "Seaborn",
-  "Dask",
-  "R",
-  "SQL", 
-  "Hadoop",
-  "Spark",
   "Tableau",
-  "SSMS",
-  "Oracle",
+  "Azure",
+  "Azure Machine learning Studio",
   "Azure Devops",
+  "DataBricks"
+  ,
 
 ] as const;
