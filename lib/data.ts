@@ -149,6 +149,9 @@ export const skillsData = [
   "Matplotlib",
   "Seaborn",
   "Tableau",
+  "Git - CI/CD",
+  "Azure Data Lake", "Azure SQL DB","ETL/ELT pipelines",
+
   "Azure",
   "Azure Machine learning Studio",
   "Azure Devops",
