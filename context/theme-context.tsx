@@ -30,7 +30,7 @@ export default function ThemeContextProvider({
     } else {
       setTheme("dark"); // Default to dark if no preference is found
     }
-  }, []);
+  }, []);//s
 
   useEffect(() => {
     // Update the document class based on theme
