@@ -4,6 +4,18 @@ import type { NextRequest } from "next/server";
 
 export const runtime = "nodejs";
 
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
   console.log("📡 [route.ts] → POST /api/chat invoked");
 
