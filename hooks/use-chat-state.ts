@@ -57,7 +57,7 @@ export function useChatState() {
   const [showSizeSelector, setShowSizeSelector] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: "1",
+      id: Date.now().toString(),
       role: "assistant",
       content: "Yer talkin' to vi, the sharpest tongue in the digital corral. What can I rustle up for ya?",
     },

@@ -202,38 +202,44 @@ export default function DockableChat() {
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-3 space-y-4 bg-sky-50/30 dark:bg-gray-900/30 min-h-0">
         {messages.map((message) => {
-          console.log(
-            `Rendering message ${message.id}, role: ${message.role}, content: "${message.content}", length: ${message.content.length}, isLoading: ${isLoading}`,
-          )
+          const timestamp = new Date(Number.parseInt(message.id)).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
 
           return (
-            <div
-              key={message.id}
-              className={cn(
-                "flex flex-col max-w-[90%] rounded-lg p-3",
-                message.role === "user"
-                  ? "ml-auto bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-sm"
-                  : "bg-white/80 dark:bg-gray-800/80 text-gray-950 dark:text-gray-50 shadow-sm border border-sky-200/50 dark:border-gray-700/50",
-              )}
-            >
-              {message.role === "assistant" ? (
-                message.content === "" && isLoading ? (
-                  <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 italic">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>{currentThinkingPhrase || "Thinking..."}</span>
-                  </div>
+            <div key={message.id} className="space-y-1">
+              {/* Timestamp */}
+              <div className="text-xs text-gray-500 dark:text-gray-400 text-center">{timestamp}</div>
+
+              {/* Message bubble */}
+              <div
+                className={cn(
+                  "flex flex-col max-w-[90%] rounded-lg p-3",
+                  message.role === "user"
+                    ? "ml-auto bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-sm"
+                    : "bg-white/80 dark:bg-gray-800/80 text-gray-950 dark:text-gray-50 shadow-sm border border-sky-200/50 dark:border-gray-700/50",
+                )}
+              >
+                {message.role === "assistant" ? (
+                  message.content === "" && isLoading ? (
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 italic">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>{currentThinkingPhrase || "Thinking..."}</span>
+                    </div>
+                  ) : (
+                    <>
+                      {message.content ? (
+                        <MarkdownRenderer content={message.content} />
+                      ) : (
+                        <span className="text-gray-500">No content available</span>
+                      )}
+                    </>
+                  )
                 ) : (
-                  <>
-                    {message.content ? (
-                      <MarkdownRenderer content={message.content} />
-                    ) : (
-                      <span className="text-gray-500">No content available</span>
-                    )}
-                  </>
-                )
-              ) : (
-                <span>{message.content}</span>
-              )}
+                  <span>{message.content}</span>
+                )}
+              </div>
             </div>
           )
         })}
