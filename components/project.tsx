@@ -86,16 +86,19 @@ export default function Project({
 
       </section>
       
-      <div className="button-wrapper">
-    {showButton && 
-      <a         
-      className="bg-white p-4 rounded-full flex items-center justify-center w-12 h-12 focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-      href="/Thesis.pdf"
-    download>
-      <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
-      </a>} {/* Conditional Button */}
-      
-      </div>
+<div className="button-wrapper mt-4 flex justify-end">
+          {showButton && (
+            <a
+              className="bg-white p-4 rounded-full flex items-center justify-center w-14 h-14 focus:scale-[1.15] hover:scale-[1.15] hover:text-gray-950 active:scale-105 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl border border-gray-200 dark:bg-white/10 dark:text-white/60 dark:border-white/20 dark:hover:bg-white/20"
+              href="/Thesis.pdf"
+              download
+              aria-label="Download thesis PDF"
+            >
+              <HiDownload className="opacity-70 hover:opacity-100 text-lg transition-all duration-200" />
+            </a>
+          )}{" "}
+          {/* Conditional Button */}
+        </div>
       </motion.div>
 
         );

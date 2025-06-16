@@ -29,21 +29,25 @@ export const links = [
     name: "Experience",
     hash: "#experience",
   },
-  {
-    name: "Contact",
-    hash: "#contact",
-  },
+  
 ] as const;
 
 export const experiencesData = [
+  {
+    title: "GenAI Engineer",
+    location: "NOKIA",
+    description:"• Led end-to-end development of a production-grade GenAI/LLM Retrieval-Augmented Generation (RAG) application on Databricks, integrating Nokia SharePoint supply-chain documents and metadata to power a conversational AI assistant for self-service reporting.\n• Designed and implemented Databricks workflows and jobs—including scalable ETL pipelines—to ingest, cleanse, transform, and enrich document text and metadata at scale.\n• Built and maintained Azure DevOps CI/CD pipelines, automating deployment of Databricks notebooks, ETL jobs, and LangChain/LangGraph inference services across development, staging, and production environments.\n • Architected and optimized LangChain & LangGraph (LCEL) chains for high-throughput, low-latency question-answering.\n • Owned LLMOps from data ingestion through model inference and performance tuning—creating Databricks vector search indexes and serving models via Databricks Model Serving for seamless handshake with the front-end—while collaborating with an external partner on UI integration.",
 
+    icon: React.createElement(FaReact),
+    date: "2024 Sep - Present",
+  },
   {
     title: "Data Scientist/Engineer",
     location: "NOKIA",
-    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions",
+    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions. Utilizing PySpark for automation & data manipulations & ETL in Databricks environment.",
     
     icon: React.createElement(FaReact),
-    date: "2023 Sep - Present",
+    date: "2023 Sep - 2024 Sep",
   },
   {
     title: "Data Science Trainee in Rotational Program",
@@ -106,56 +110,71 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "Thesis on Deep Learning for Melanoma Classification",
+    title: "LLM RAG Application",
     description:
-      "Deployed DL model on Azure for melanoma diagnosis, enabling real-time, SMS-based cancer prognosis",
-    tags: ["Python", "Tensorflow", "Skicit-Learn",  "Azure", "twilio"],
-    
+      "built GenAI LLM Retrieval-Augmented Generation (RAG) application on Databricks: integrated SharePoint documents powering a conversational AI assistant",
+    tags: [
+      "Pyspark",
+      "Databricks",
+      "LangGraph",
+      "CI/CD",
+      "MLflow",
+      "DBX Vector Search",
+      "DBX Model Serving",
+
+    ],
+    imageUrl: deia.src,
+  },
+{
+    title: "Thesis on CNNs for Melanoma Classification",
+    description:
+      "Built a CNN pipeline on Azure for melanoma detection using transfer learning and advanced data augmentation, with real-time SMS prognostics via Twilio.",
+    tags: [
+      "Python",
+      "TensorFlow",
+      "Keras",
+      "Azure ML",
+      "CNN",
+      "Twilio"
+    ],
     imageUrl: thesImg.src,
     showButton: true, // Optional button
-
   },{
-    title: "Server Comparator ",
+    title: "Databricks Server Comparator ",
     description:
-      "Scaled comparator to accurately pinpoint table mismatches across servers in DataBase migration project",
-    tags: ["Python", "Pyodbc", "Datacompy",  "Azure", "Oracle"],
-    imageUrl: delta.src,
+      "Implemented a scalable Databricks-based comparator using PySpark and Spark SQL for PK-level, cross-table row validation—detecting mismatches in Delta Lake tables at scale.",
+tags: [
+      "Python",
+      "PySpark",
+      "Spark SQL",
+      "Databricks",
+      "ETL",
+    ],    imageUrl: delta.src,
 
   },
-  {
-    title: "LLM",
-    description:
-      "Fine-Tuned LLM on custom database containing metadata of data objects, designed to enhance comprehension of data object complexity",
-    tags: ["Python", "Transformers", "huggingface",  "Databricks", "MLFlow"],
-    imageUrl: deia.src,
 
-  },
 ];
 
 export const skillsData = [
   "Python",
   "R",
-  "SQL",
+  "SQL & Spark SQL",
   "PySpark",
-  "Machine Learning Algorithms",
-  "Deep Learning",
-  "Scikit-Learn",
-  "TensorFlow",
-  "Keras",
-  "transformers",
-  "huggingface",
-  "Pandas",
-  "NumPy",
-  "Matplotlib",
-  "Seaborn",
-  "Tableau",
-  "Git - CI/CD",
-  "Azure Data Lake", "Azure SQL DB","ETL/ELT pipelines",
-
+  "Databricks",
   "Azure",
   "Azure Machine learning Studio",
-  "Azure Devops",
-  "DataBricks"
+  "CI/CD - Azure Devops",
+"Delta Lake/Azure Data Lake Storage",
+"ETL/ELT pipelines",
+"Data modeling & warehousing",
+"Databricks Medallion Architecture",
+"Machine learning frameworks (TensorFlow, PyTorch, Keras, scikit-learn) ",
+  "Deep Learning",
+"Hugging Face Transformers",
+"langchain",
+"langgraph",
+"LLMOps (vector search, model serving, MLflow)",
+
   ,
 
 ] as const;

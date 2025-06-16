@@ -21,14 +21,14 @@ export default function About() {
       <p className="mb-3">
 
       I began my journey in the ever so small country of Luxembourg & moved to Portugal at the age of 17 to pursue my studies.
-      Ever since, carved out a niche for myself in the world of data, balancing the dual roles of a  data engineer & scientist.  </p>
+      Ever since, carved out a niche for myself in the world of data, balancing the trio roles of a  data engineer, scientist & genAI engineer on Databricks environment.  </p>
 
   <p> 
 I've always been a guy of odd interests. When I was younger I was really passionate about martial arts and computers.
 This inherently led me to building my own computer and joining my first boxing gym. 
 </p>
   <p>
-Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2024, and also ... play chess.
+Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2025, and also ... play chess.
 Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. Some people find it odd, I find it complementary.
 </p>
   <p>

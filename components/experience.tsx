@@ -48,7 +48,8 @@ export default function Experience() {
                 </p>
 
                 {/* Description */}
-                <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-base">{item.description}</p>
+                                <p className="text-gray-700 dark:text-gray-200 leading-relaxed text-base whitespace-pre-line">
+{item.description}</p>
               </div>
             </div>
           </div>
