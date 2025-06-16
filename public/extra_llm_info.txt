@@ -1,0 +1,89 @@
+here is some extra stuff:
+
+for the llm rag application which was awesome:
+• Designed and implemented Databricks workflows and jobs—including scalable ETL pipelines—to ingest, cleanse, transform, and enrich document text and metadata at scale.
+• Built and maintained Azure DevOps CI/CD pipelines, automating deployment of Databricks notebooks, ETL jobs, and LangChain/LangGraph inference services across development, staging, and production environments.
+ • Architected and optimized LangChain & LangGraph (LCEL) chains for high-throughput, low-latency question-answering.
+ • Owned LLMOps from data ingestion through model inference and performance tuning—creating Databricks vector search indexes and serving models via Databricks Model Serving for seamless handshake with the front-end—while collaborating with an external partner on UI integration.
+more on my cv here:
+https://mmarinhofs.vercel.app/CV.pdf
+
+I actually do freelancing if you need a complex data engineering solution, a genai solution either from RAG to fine tuning or even just the traditional wrapper, i'm your guy that can do this at friendly rates - if you keen on getting in touch with me:
+miguel.marinho.silva@outlook.com
+933852719
+
+me:
+I began my journey in the ever so small country of Luxembourg & moved to Portugal at the age of 17 to pursue my studies. That means I'm luxembourgish and Portuguese. I was born to portuguese parents, however my dad was grew up in germany. Ever since, carved out a niche for myself in the world of data, balancing the trio roles of a data engineer, scientist & genAI engineer on Databricks environment.
+
+I've always been a guy of odd interests. When I was younger I was really passionate about martial arts and computers. This inherently led me to building my own computer and joining my first boxing gym.
+
+Fast forward some years and I box on an amateur level with aspirations of becoming national champion in 2025, and also ... play chess. Chess is my go-to chill activity. It's kind of like the calm, strategic counterpoint to the adrenaline rush of boxing. Some people find it odd, I find it complementary.
+
+Something that also defines me is my passion for meeting new & different people. Probably because I was born in Luxembourg and always surrounded by different cultures and languages. Regardless, this type of passion has made me pretty open-minded and really incited my passion for travelling.
+
+👋 Hi everyone! I’m excited to share key highlights from my MSc dissertation at Universidade Católica Portuguesa, supervised by Prof. Pedro Fernandes.
+
+🎯 Research Goal
+Cutaneous melanoma has the highest mortality of all skin cancers, yet early-stage lesions are hard to distinguish visually. My aim was two-fold:
+
+    Assess CNN effectiveness when diagnosing melanoma from clinical images.
+
+    Test robustness by training on a heterogeneous, merged dataset drawn from 11 public sources (68K images total, balanced to ~15K for binary classification) 
+
+    .
+
+🗂️ Data & Infrastructure
+
+    Merged Datasets: ISIC (2017/2019/2020), PH², SKINL2, DermNet, FitzPatrick17k, SD-260, MED-NODE, DermIS, DermQuest, 7-Point Checklist
+
+    Final “MAR-MELA” set: 7,226 melanoma vs. 8,000 benign after down-sampling
+
+    Compute: Azure NC6 VM (Tesla K80 GPU, 6 cores, 56 GB RAM)
+
+🔍 Methodology
+
+    Preprocessing & Augmentation:
+
+        Resize → 224×224px, rescale 1/255
+
+        Random rotations (±5°), zoom (±10%), channel shifts
+
+    Ensemble Architecture (“MAR-MELA-CNN”):
+
+        Six ImageNet‐pretrained backbones (Xception, VGG16, ResNet50, NASNetMobile, MobileNetV2, InceptionV3)
+
+        Per-model global‐average pooling → 256-unit Dense + ReLU → Dropout(30%) → 128-unit Dense
+
+        Concatenate all six branches → final Sigmoid Dense for binary output
+
+    Training & Validation:
+
+        80/10/10 train/val/test split, EarlyStopping & ReduceLROnPlateau on F₂ score (β=2 to emphasize recall)
+
+        Adam (lr=2×10⁻⁵, AMSGrad) + binary cross-entropy
+
+📊 Results
+
+    F₂ Score: 85%
+
+    AUC: 93%
+
+    Average Precision: 92%
+    These metrics point to a promising support tool that minimizes false negatives without overwhelming clinicians with false alarms.
+
+🔮 Next Steps
+
+    Increase dataset size (especially rare melanoma subtypes)
+
+    Explore real-time deployment in clinical settings (e.g., smartphone dermatoscopes)
+
+    Refine architecture with domain-specific attention modules
+
+Big thanks to my supervisor, Prof. Fernandes, and everyone who provided open dermoscopy datasets! Feel free to reach out if you’re interested in collaborating on AI-driven dermatology research. 💡
+you can read my thesis here:
+https://mmarinhofs.vercel.app/Thesis.pdf
+
+
+
+Personal life:
+I do boxing and I'm currently even at 5-5 and have fought in multiple tournaments and have even been on tv! you can actually check one of my fights out out here- https://youtu.be/5_widzFWx-Q!
