@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   }
 
   // 2. Build the upstream URL
-  const pythonUrl = new URL("/api_python/chat", request.url);
+  const pythonUrl = new URL("/api/chat", request.url);
   console.log("🔗 [route.ts] Proxying to Python at:", pythonUrl.toString());
 
   // 3. Call the Python function
