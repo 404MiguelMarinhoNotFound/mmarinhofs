@@ -150,7 +150,9 @@ export function MarkdownRenderer({ content, className = "" }: MarkdownRendererPr
       }
 
       // Links [text](url)
-      const linkMatch = remaining.match(/^\[([^\]]+)\]$$([^)]+)$$/)
+      // CORRECT: literal “]” then “(” then capture URL then “)”
+const linkMatch = remaining.match(/^\[([^\]]+)\]\(([^)]+)\)/)
+
       if (linkMatch) {
         parts.push(
           <a
