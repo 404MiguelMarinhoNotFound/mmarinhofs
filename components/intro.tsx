@@ -104,7 +104,7 @@ export default function Intro() {
                   "a Machine learning expert🧠🤖",
                   1000,
                  
-                  "a Solutions Engineer🔧",
+                  "a GenAI Engineer🔧",
                   1000,
                   "Ready for any challenge💪",
                   10000,
