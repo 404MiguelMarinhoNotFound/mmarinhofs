@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { useChatState } from "@/hooks/use-chat-state"
-import { MessageCircle, Minimize, Send, Loader2, Expand } from "lucide-react"
+import { MessageCircle, X, Send, Loader2, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MarkdownRenderer } from "./markdown-renderer"
 
@@ -146,8 +146,9 @@ export default function DockableChat() {
             size="icon"
             className="h-6 w-6 hover:bg-sky-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
             onClick={toggleSizeSelector}
+            title="Resize window"
           >
-            <Expand className="h-4 w-4" />
+            <Settings className="h-4 w-4" />
           </Button>
 
           {/* Size selector dropdown */}
@@ -195,8 +196,9 @@ export default function DockableChat() {
               }
               toggleMinimized()
             }}
+            title="Minimize chat"
           >
-            <Minimize className="h-4 w-4" />
+            <X className="h-4 w-4" />
           </Button>
         </div>
       </CardHeader>

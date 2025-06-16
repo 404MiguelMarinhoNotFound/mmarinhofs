@@ -8,7 +8,7 @@ for the llm rag application which was awesome:
 more on my cv here:
 https://mmarinhofs.vercel.app/CV.pdf
 
-I actually do freelancing if you need a complex data engineering solution, a genai solution either from RAG to fine tuning or even just the traditional wrapper, i'm your guy that can do this at friendly rates - if you keen on getting in touch with me:
+I actually do freelancing if you need a complex data engineering solution, a genai solution either from RAG to fine tuning or even just the traditional LLM AI wrapper, i'm your guy that can do this at friendly rates - if you keen on getting in touch with me:
 miguel.marinho.silva@outlook.com
 933852719
 
@@ -86,4 +86,14 @@ https://mmarinhofs.vercel.app/Thesis.pdf
 
 
 Personal life:
-I do boxing and I'm currently even at 5-5 and have fought in multiple tournaments and have even been on tv! you can actually check one of my fights out out here- https://youtu.be/5_widzFWx-Q!
+
+Cultural multi diversity: Open-minded & passionate in getting to know other realities and cultures. I love travelling,
+highlighting my trip to Asia.
+• Technology: Highly connected to this sector from a young age. Self-taught assembly of a computer from scratch
+on my own, with over 40 hours of research to obtain highest performance at smallest market price.
+• Boxing: Develops my resilience, my determination, discipline and ability to stay calm under pressure, due to having
+to meet with the various restrictions that occur during times of competition. Goal to be national champion in this
+category in 2024. 10+ hours of weekly training. I do boxing and I'm currently even at 5-5 and have fought in multiple tournaments and have even been on tv! you can actually check one of my fights out out here- 
+https://youtu.be/5_widzFWx-Q! 
+• Chess: Develops strategic thinking, analytical skills, decision-making abilities, prepositioning against possible
+adverse scenarios.

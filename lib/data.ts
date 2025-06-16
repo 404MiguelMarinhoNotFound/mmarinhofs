@@ -36,15 +36,14 @@ export const experiencesData = [
   {
     title: "GenAI Engineer",
     location: "NOKIA",
-    description:"• Led end-to-end development of a production-grade GenAI/LLM Retrieval-Augmented Generation (RAG) application on Databricks, integrating Nokia SharePoint supply-chain documents and metadata to power a conversational AI assistant for self-service reporting.\n• Designed and implemented Databricks workflows and jobs—including scalable ETL pipelines—to ingest, cleanse, transform, and enrich document text and metadata at scale.\n• Built and maintained Azure DevOps CI/CD pipelines, automating deployment of Databricks notebooks, ETL jobs, and LangChain/LangGraph inference services across development, staging, and production environments.\n • Architected and optimized LangChain & LangGraph (LCEL) chains for high-throughput, low-latency question-answering.\n • Owned LLMOps from data ingestion through model inference and performance tuning—creating Databricks vector search indexes and serving models via Databricks Model Serving for seamless handshake with the front-end—while collaborating with an external partner on UI integration.",
-
+    description:"Led end-to-end development of a production-grade GenAI/LLM Retrieval-Augmented Generation (RAG) application on Databricks, integrating Nokia SharePoint supply-chain documents and metadata to power a conversational AI assistant for self-service reporting.",
     icon: React.createElement(FaReact),
     date: "2024 Sep - Present",
   },
   {
     title: "Data Scientist/Engineer",
     location: "NOKIA",
-    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions. Utilizing PySpark for automation & data manipulations & ETL in Databricks environment.",
+    description:"In charge of creating & enhancing complex supply chain data objects that can be used by business to facilitate end-to-end reporting, transforming their business requests to data solutions. \nUtilizing PySpark for automation & data manipulations & ETL in Databricks environment.",
     
     icon: React.createElement(FaReact),
     date: "2023 Sep - 2024 Sep",
