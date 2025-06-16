@@ -2,9 +2,7 @@
 
 import type { NextRequest } from "next/server";
 
-export const config = {
-  runtime: "nodejs"  // must use Node.js runtime for streaming
-};
+export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   console.log("📡 [route.ts] → POST /api/chat invoked");
