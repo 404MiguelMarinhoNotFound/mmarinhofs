@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
@@ -11,7 +10,7 @@ import { MessageCircle, X, Send, Loader2, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { MarkdownRenderer } from "./markdown-renderer"
 
-export default function DockableChat() {
+export default function DockableChatbot() {
   const {
     messages,
     input,
@@ -21,7 +20,6 @@ export default function DockableChat() {
     isMinimized,
     toggleMinimized,
     isDocked,
-    toggleDocked,
     currentSize,
     sizePreset,
     showSizeSelector,
@@ -30,7 +28,7 @@ export default function DockableChat() {
     selectSize,
   } = useChatState()
 
-  // Initialize position to bottom right when undocked
+  // Position state for undocked mode
   const [position, setPosition] = useState(() => ({
     x: typeof window !== "undefined" ? window.innerWidth - currentSize.width - 20 : 0,
     y: typeof window !== "undefined" ? window.innerHeight - currentSize.height - 20 : 0,
@@ -43,13 +41,13 @@ export default function DockableChat() {
     offsetY: 0,
   })
 
-  // Scroll to bottom when messages change
+  // Auto-scroll to bottom
   const messagesEndRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  // Handle dragging
+  // Drag handling
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isDocked) return
 
@@ -108,7 +106,6 @@ export default function DockableChat() {
     )
   }
 
-  // Always position at bottom right when docked, or use custom position when undocked
   const style = isDocked
     ? {
         position: "fixed" as const,
@@ -151,7 +148,6 @@ export default function DockableChat() {
             <Settings className="h-4 w-4" />
           </Button>
 
-          {/* Size selector dropdown */}
           {showSizeSelector && (
             <div className="absolute top-8 right-0 bg-white dark:bg-gray-800 border border-sky-200 dark:border-gray-700 rounded-md shadow-lg p-2 min-w-[120px] z-10">
               <div className="space-y-1">
@@ -190,12 +186,7 @@ export default function DockableChat() {
             variant="ghost"
             size="icon"
             className="h-6 w-6 hover:bg-sky-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-            onClick={() => {
-              if (!isDocked) {
-                toggleDocked()
-              }
-              toggleMinimized()
-            }}
+            onClick={toggleMinimized}
             title="Minimize chat"
           >
             <X className="h-4 w-4" />
@@ -211,10 +202,7 @@ export default function DockableChat() {
 
           return (
             <div key={message.id} className="space-y-1">
-              {/* Timestamp */}
               <div className="text-xs text-gray-500 dark:text-gray-400 text-center">{timestamp}</div>
-
-              {/* Message bubble */}
               <div
                 className={cn(
                   "flex flex-col max-w-[90%] rounded-lg p-3",
@@ -252,7 +240,7 @@ export default function DockableChat() {
           <Input
             value={input}
             onChange={handleInputChange}
-            placeholder="Type a message..."
+            placeholder="Ask me about Miguel's CV..."
             className="flex-1 bg-white/80 dark:bg-gray-800/80 border-sky-200 dark:border-gray-600 focus:border-sky-400 dark:focus:border-sky-500 text-gray-950 dark:text-gray-50"
             disabled={isLoading}
           />

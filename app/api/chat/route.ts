@@ -21,28 +21,25 @@ interface DocumentCache {
 
 const documentCache = new Map<string, DocumentCache>()
 
-// Function to get file hash for cache invalidation
 function getFileHash(filePath: string): string {
   try {
     const stats = fs.statSync(filePath)
     const content = fs.readFileSync(filePath)
     const hash = createHash("md5").update(content).digest("hex") + stats.mtime.getTime()
-    console.log(`🔍 Generated hash for ${path.basename(filePath)}: ${hash.substring(0, 8)}...`)
+    console.log(`🔍 Hash for ${path.basename(filePath)}: ${hash.substring(0, 8)}...`)
     return hash
   } catch (error) {
-    console.log(`❌ Failed to generate hash for ${path.basename(filePath)}:`, error.message)
+    console.log(`❌ Hash failed for ${path.basename(filePath)}:`, error.message)
     return "file-not-found"
   }
 }
 
-// Function to extract text from PDF (simplified - you'd want a proper PDF parser)
 async function extractPDFText(pdfPath: string): Promise<string> {
   try {
-    console.log(`📄 Attempting to extract PDF text from: ${pdfPath}`)
-    // For production, use a library like 'pdf-parse'
+    console.log(`📄 Extracting PDF: ${pdfPath}`)
     const stats = fs.statSync(pdfPath)
     const content = `PDF file detected (${Math.round(stats.size / 1024)}KB) - Content extraction would happen here with pdf-parse library`
-    console.log(`✅ PDF extraction successful, content length: ${content.length}`)
+    console.log(`✅ PDF extracted: ${content.length} chars`)
     return content
   } catch (error) {
     console.error("❌ PDF extraction failed:", error)
@@ -50,20 +47,18 @@ async function extractPDFText(pdfPath: string): Promise<string> {
   }
 }
 
-// Function to load and cache document content
 async function loadDocument(filePath: string, type: "text" | "pdf"): Promise<string> {
-  console.log(`📂 Loading document: ${filePath} (type: ${type})`)
+  console.log(`📂 Loading ${type}: ${path.basename(filePath)}`)
 
   const fileHash = getFileHash(filePath)
   const cached = documentCache.get(filePath)
 
-  // Return cached content if hash matches (file unchanged)
   if (cached && cached.hash === fileHash) {
-    console.log(`📋 Using cached content for ${path.basename(filePath)} (${cached.content.length} chars)`)
+    console.log(`📋 Using cached ${type} (${cached.content.length} chars)`)
     return cached.content
   }
 
-  console.log(`📖 Loading fresh content for ${path.basename(filePath)}`)
+  console.log(`📖 Loading fresh ${type}`)
 
   try {
     let content: string
@@ -72,62 +67,64 @@ async function loadDocument(filePath: string, type: "text" | "pdf"): Promise<str
       content = await extractPDFText(filePath)
     } else {
       content = fs.readFileSync(filePath, "utf-8")
-      console.log(`📝 Text file loaded successfully, content length: ${content.length}`)
+      console.log(`📝 Text loaded: ${content.length} chars`)
     }
 
-    // Cache the content
     documentCache.set(filePath, {
       content,
       hash: fileHash,
       lastModified: Date.now(),
     })
 
-    console.log(`💾 Cached content for ${path.basename(filePath)}`)
+    console.log(`💾 Cached ${type}`)
     return content
   } catch (error) {
-    console.error(`❌ Failed to load ${type} file:`, error)
+    console.error(`❌ Failed to load ${type}:`, error)
     const fallbackContent = type === "pdf" ? "PDF failed to load" : "Background information failed to load"
 
-    // Cache the fallback to avoid repeated failed attempts
     documentCache.set(filePath, {
       content: fallbackContent,
       hash: "error",
       lastModified: Date.now(),
     })
 
-    console.log(`⚠️ Using fallback content: "${fallbackContent}"`)
+    console.log(`⚠️ Using fallback: "${fallbackContent}"`)
     return fallbackContent
   }
 }
 
 export async function POST(req: Request) {
-  console.log("\n🚀 === NEW CHAT REQUEST ===")
+  console.log("\n🚀 === CHAT REQUEST START ===")
 
   try {
     const { messages } = await req.json()
-    console.log(`📨 Received ${messages.length} messages`)
-    console.log(`📝 Last message: "${messages[messages.length - 1]?.content?.substring(0, 100)}..."`)
+    console.log(`📨 Messages: ${messages.length}`)
+    console.log(`📝 Last: "${messages[messages.length - 1]?.content?.substring(0, 50)}..."`)
 
-    // Check API key
+    // Validate API key
     if (!process.env.FIREWORKS_API_KEY) {
-      console.error("❌ FIREWORKS_API_KEY not found in environment variables")
+      console.error("❌ Missing FIREWORKS_API_KEY")
       throw new Error("API key not configured")
     }
-    console.log(`🔑 API key found: ${process.env.FIREWORKS_API_KEY.substring(0, 8)}...`)
 
-    // Load documents with caching
+    const apiKey = process.env.FIREWORKS_API_KEY
+    console.log(`🔑 API key: ${apiKey.substring(0, 8)}...`)
+
+    // Load documents
     const txtPath = path.join(process.cwd(), "public", "extra_llm_info.txt")
     const pdfPath = path.join(process.cwd(), "public", "CV.pdf")
 
-    console.log(`📁 Text file path: ${txtPath}`)
-    console.log(`📁 PDF file path: ${pdfPath}`)
+    console.log(`📁 Paths:`)
+    console.log(`   Text: ${txtPath}`)
+    console.log(`   PDF: ${pdfPath}`)
 
     const [extraInfo, cvContent] = await Promise.all([loadDocument(txtPath, "text"), loadDocument(pdfPath, "pdf")])
 
-    console.log(`📄 Extra info loaded (${extraInfo.length} chars): "${extraInfo.substring(0, 50)}..."`)
-    console.log(`📄 CV content loaded (${cvContent.length} chars): "${cvContent.substring(0, 50)}..."`)
+    console.log(`📄 Loaded:`)
+    console.log(`   Extra: ${extraInfo.length} chars - "${extraInfo.substring(0, 30)}..."`)
+    console.log(`   CV: ${cvContent.length} chars - "${cvContent.substring(0, 30)}..."`)
 
-    // Create the Wild West system prompt with content
+    // Create system prompt
     const systemPrompt = `Howdy partner! Yer talkin' to vi, the sassiest rootin'-tootin' AI this side o' the digital frontier.
 Yeehaw! Here's how I operate:
 
@@ -190,36 +187,46 @@ boots and cussin' at heifers if y'ask me.
 Remember: Final answers ALWAYS go in <answer></answer> tags. Keep yer thinkin' to yerself - cowboys
 don't blabber 'bout their process. Now mosey along and answer that dern question!`
 
-    console.log(`📋 System prompt created (${systemPrompt.length} chars)`)
+    console.log(`📋 System prompt: ${systemPrompt.length} chars`)
 
-    const lastMessage = messages[messages.length - 1]
-    const enhancedMessages = [
-      ...messages.slice(0, -1),
-      {
-        ...lastMessage,
-        content: lastMessage.content,
-      },
-    ]
+    console.log(`🤖 Using model: accounts/fireworks/models/llama4-maverick-instruct-basic`)
 
-    console.log(`🤖 Calling AI model: accounts/fireworks/models/deepseek-r1-basic`)
-    console.log(`📤 Enhanced messages count: ${enhancedMessages.length}`)
+    // Stream with detailed logging
+    let chunkCount = 0
+    let totalText = ""
 
     const result = streamText({
-      model: fireworks("accounts/fireworks/models/deepseek-r1-basic"),
-      messages: enhancedMessages,
-      maxTokens: 20000,
+      model: fireworks("accounts/fireworks/models/llama4-maverick-instruct-basic"),
+      messages: messages,
+      maxTokens: 2000,
       system: systemPrompt,
+      onChunk: ({ chunk }) => {
+        chunkCount++
+        console.log(`🔥 Chunk ${chunkCount}: type=${chunk.type}`)
+        if (chunk.type === "text-delta") {
+          console.log(`📝 Delta: "${chunk.textDelta}"`)
+          totalText += chunk.textDelta
+        }
+      },
+      onFinish: ({ text, usage }) => {
+        console.log(`🏁 Stream finished:`)
+        console.log(`   Total chunks: ${chunkCount}`)
+        console.log(`   Final text length: ${text.length}`)
+        console.log(`   Accumulated length: ${totalText.length}`)
+        console.log(`   Usage:`, usage)
+        console.log(`   Preview: "${text.substring(0, 100)}..."`)
+      },
+      onError: (error) => {
+        console.error(`💥 Stream error:`, error)
+      },
     })
 
-    console.log(`✅ AI model call successful, creating stream response`)
+    console.log(`✅ Stream created, returning response`)
 
-    const response = result.toDataStreamResponse()
-    console.log(`📡 Stream response created, returning to client`)
-
-    return response
+    return result.toDataStreamResponse()
   } catch (error) {
-    console.error("💥 Chat API error:", error)
-    console.error("Stack trace:", error.stack)
+    console.error("💥 API Error:", error)
+    console.error("Stack:", error.stack)
     return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
