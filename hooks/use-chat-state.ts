@@ -62,7 +62,8 @@ export function useChatState() {
       console.log(`   Preview: "${message.content.substring(0, 100)}..."`)
     },
     onError: (error) => {
-      console.error("💥 Frontend chat error:", error)
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      console.error("💥 Frontend chat error:", errorMessage)
     },
   })
 

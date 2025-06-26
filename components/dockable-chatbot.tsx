@@ -195,10 +195,18 @@ export default function DockableChatbot() {
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-3 space-y-4 bg-sky-50/30 dark:bg-gray-900/30 min-h-0">
         {messages.map((message) => {
-          const timestamp = new Date(Number.parseInt(message.id)).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })
+          // Fix datetime formatting
+          const messageId = message.id
+          const timestamp =
+            messageId && !isNaN(Number(messageId))
+              ? new Date(Number(messageId)).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : new Date().toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
 
           return (
             <div key={message.id} className="space-y-1">

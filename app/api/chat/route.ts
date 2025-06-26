@@ -4,7 +4,7 @@ import fs from "fs"
 import path from "path"
 import { createHash } from "crypto"
 
-// Create Fireworks AI client
+// Create Fireworks AI client with explicit base URL
 const fireworks = createOpenAI({
   baseURL: "https://api.fireworks.ai/inference/v1",
   apiKey: process.env.FIREWORKS_API_KEY,
@@ -29,7 +29,8 @@ function getFileHash(filePath: string): string {
     console.log(`🔍 Hash for ${path.basename(filePath)}: ${hash.substring(0, 8)}...`)
     return hash
   } catch (error) {
-    console.log(`❌ Hash failed for ${path.basename(filePath)}:`, error.message)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.log(`❌ Hash failed for ${path.basename(filePath)}:`, errorMessage)
     return "file-not-found"
   }
 }
@@ -42,7 +43,8 @@ async function extractPDFText(pdfPath: string): Promise<string> {
     console.log(`✅ PDF extracted: ${content.length} chars`)
     return content
   } catch (error) {
-    console.error("❌ PDF extraction failed:", error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error("❌ PDF extraction failed:", errorMessage)
     return "PDF failed to load"
   }
 }
@@ -79,7 +81,8 @@ async function loadDocument(filePath: string, type: "text" | "pdf"): Promise<str
     console.log(`💾 Cached ${type}`)
     return content
   } catch (error) {
-    console.error(`❌ Failed to load ${type}:`, error)
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error(`❌ Failed to load ${type}:`, errorMessage)
     const fallbackContent = type === "pdf" ? "PDF failed to load" : "Background information failed to load"
 
     documentCache.set(filePath, {
@@ -109,6 +112,7 @@ export async function POST(req: Request) {
 
     const apiKey = process.env.FIREWORKS_API_KEY
     console.log(`🔑 API key: ${apiKey.substring(0, 8)}...`)
+    console.log(`🌐 Base URL: https://api.fireworks.ai/inference/v1`)
 
     // Load documents
     const txtPath = path.join(process.cwd(), "public", "extra_llm_info.txt")
@@ -225,9 +229,13 @@ don't blabber 'bout their process. Now mosey along and answer that dern question
 
     return result.toDataStreamResponse()
   } catch (error) {
-    console.error("💥 API Error:", error)
-    console.error("Stack:", error.stack)
-    return new Response(JSON.stringify({ error: "Internal server error", details: error.message }), {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error("💥 API Error:", errorMessage)
+    if (errorStack) {
+      console.error("Stack:", errorStack)
+    }
+    return new Response(JSON.stringify({ error: "Internal server error", details: errorMessage }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     })
