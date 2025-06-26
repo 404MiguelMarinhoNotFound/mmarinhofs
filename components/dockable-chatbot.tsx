@@ -24,9 +24,17 @@ export default function DockableChatbot() {
     sizePreset,
     showSizeSelector,
     currentThinkingPhrase,
+    isCowboyMode,
     toggleSizeSelector,
     selectSize,
+    toggleCowboyMode,
   } = useChatState()
+
+  // Debug log to ensure we're getting the values
+  useEffect(() => {
+    console.log("🔍 DockableChatbot - isCowboyMode:", isCowboyMode)
+    console.log("🔍 DockableChatbot - toggleCowboyMode:", typeof toggleCowboyMode)
+  }, [isCowboyMode, toggleCowboyMode])
 
   // Position state for undocked mode
   const [position, setPosition] = useState(() => ({
@@ -95,6 +103,15 @@ export default function DockableChatbot() {
     }
   }, [showSizeSelector, toggleSizeSelector])
 
+  // Handle cowboy button click with debugging
+  const handleCowboyClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log("🎯 Cowboy button clicked!")
+    console.log("🤠 Current mode before toggle:", isCowboyMode)
+    toggleCowboyMode()
+  }
+
   if (isMinimized) {
     return (
       <Button
@@ -134,10 +151,33 @@ export default function DockableChatbot() {
       >
         <div className="flex items-center gap-2">
           <MessageCircle className="h-5 w-5 text-sky-600 dark:text-sky-400" />
-          <span className="font-medium text-gray-950 dark:text-gray-50">vi</span>
+          <div className="flex items-center gap-1">
+            <span className="font-medium text-gray-950 dark:text-gray-50">vi</span>
+            {isCowboyMode && (
+              <span className="text-lg animate-bounce" title="Cowboy mode active!">
+                🤠
+              </span>
+            )}
+          </div>
           {isLoading && <Loader2 className="h-4 w-4 animate-spin text-sky-600 dark:text-sky-400" />}
         </div>
         <div className="flex items-center gap-1 relative">
+          {/* Cowboy Mode Toggle Button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn(
+              "h-6 w-6 hover:bg-sky-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 transition-all duration-200",
+              isCowboyMode && "bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/50 dark:hover:bg-amber-800/50",
+            )}
+            onClick={handleCowboyClick}
+            title={isCowboyMode ? "Switch to normal mode" : "Yeehaw! Switch to cowboy mode"}
+          >
+            <span className={cn("text-sm transition-transform duration-200", isCowboyMode && "scale-110")}>
+              {isCowboyMode ? "🤠" : "🎩"}
+            </span>
+          </Button>
+
           <Button
             variant="ghost"
             size="icon"
@@ -248,7 +288,7 @@ export default function DockableChatbot() {
           <Input
             value={input}
             onChange={handleInputChange}
-            placeholder="Ask me about Miguel's CV..."
+            placeholder={isCowboyMode ? "Ask me about Miguel's CV, partner..." : "Ask me about Miguel's CV..."}
             className="flex-1 bg-white/80 dark:bg-gray-800/80 border-sky-200 dark:border-gray-600 focus:border-sky-400 dark:focus:border-sky-500 text-gray-950 dark:text-gray-50"
             disabled={isLoading}
           />

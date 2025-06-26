@@ -2,10 +2,10 @@
 
 import type React from "react"
 import { useChat } from "ai/react"
-import { useState } from "react"
+import { useState, useCallback, useMemo, useEffect } from "react"
 
 // Cowboy-style thinking phrases
-const thinkingPhrases = [
+const cowboyThinkingPhrases = [
   "vi is fetchin' you the deets...",
   "rustlin' up some wisdom...",
   "ridin' through the data plains...",
@@ -13,8 +13,18 @@ const thinkingPhrases = [
   "diggin' through the digital frontier...",
 ]
 
-const getRandomThinkingPhrase = () => {
-  return thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)]
+// Normal thinking phrases
+const normalThinkingPhrases = [
+  "vi is processing your request...",
+  "analyzing the documents...",
+  "searching through the information...",
+  "gathering relevant details...",
+  "reviewing the content...",
+]
+
+const getRandomThinkingPhrase = (isCowboyMode: boolean) => {
+  const phrases = isCowboyMode ? cowboyThinkingPhrases : normalThinkingPhrases
+  return phrases[Math.floor(Math.random() * phrases.length)]
 }
 
 export function useChatState() {
@@ -23,6 +33,7 @@ export function useChatState() {
   const [sizePreset, setSizePreset] = useState<"small" | "medium" | "large">("medium")
   const [showSizeSelector, setShowSizeSelector] = useState(false)
   const [currentThinkingPhrase, setCurrentThinkingPhrase] = useState("")
+  const [isCowboyMode, setIsCowboyMode] = useState(true) // Start in cowboy mode
 
   const sizePresets = {
     small: { width: 350, height: 400 },
@@ -32,23 +43,32 @@ export function useChatState() {
 
   const currentSize = sizePresets[sizePreset]
 
-  // Use AI SDK's useChat hook with debugging
+  // Create initial message based on cowboy mode
+  const initialMessage = useMemo(
+    () => ({
+      id: "initial",
+      role: "assistant" as const,
+      content: isCowboyMode
+        ? "Howdy partner! I'm vi, your rootin'-tootin' AI assistant with access to your CV and additional context. Ask me anything about the documents! 🤠"
+        : "Hello! I'm vi, your AI assistant with access to your CV and additional context. Ask me anything about the documents!",
+    }),
+    [isCowboyMode],
+  )
+
+  // Use AI SDK's useChat hook with stable configuration
   const {
     messages,
     input,
     handleInputChange,
     handleSubmit: originalHandleSubmit,
     isLoading,
+    setMessages,
   } = useChat({
     api: "/api/chat",
-    initialMessages: [
-      {
-        id: Date.now().toString(),
-        role: "assistant",
-        content:
-          "Howdy! I'm vi, your AI assistant with access to your CV and additional context. Ask me anything about the documents!",
-      },
-    ],
+    body: {
+      cowboyMode: isCowboyMode,
+    },
+    initialMessages: [initialMessage],
     onResponse: (response) => {
       console.log("📡 Frontend received response:")
       console.log(`   Status: ${response.status} ${response.statusText}`)
@@ -67,43 +87,89 @@ export function useChatState() {
     },
   })
 
-  // Enhanced handleSubmit with debugging
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("\n🎯 === FRONTEND SUBMIT ===")
-    console.log(`🚀 Input: "${input}"`)
-    console.log(`📊 Current messages: ${messages.length}`)
-    console.log(`⏳ Loading: ${isLoading}`)
+  // Update initial message when cowboy mode changes
+  useEffect(() => {
+    console.log(`🔄 Cowboy mode effect triggered: ${isCowboyMode}`)
 
-    if (!input.trim() || isLoading) {
-      console.log("❌ Submission blocked")
-      return
+    const newInitialMessage = {
+      id: "initial",
+      role: "assistant" as const,
+      content: isCowboyMode
+        ? "Howdy partner! I'm vi, your rootin'-tootin' AI assistant with access to your CV and additional context. Ask me anything about the documents! 🤠"
+        : "Hello! I'm vi, your AI assistant with access to your CV and additional context. Ask me anything about the documents!",
     }
 
-    const thinkingPhrase = getRandomThinkingPhrase()
-    setCurrentThinkingPhrase(thinkingPhrase)
-    console.log(`🤔 Thinking phrase: "${thinkingPhrase}"`)
+    setMessages((currentMessages) => {
+      console.log(`📝 Current messages count: ${currentMessages.length}`)
+      // Only update if we have messages and the first one is the initial message
+      if (currentMessages.length > 0 && currentMessages[0].id === "initial") {
+        // Check if the content actually needs to change to avoid unnecessary updates
+        if (currentMessages[0].content !== newInitialMessage.content) {
+          console.log(`✅ Updating initial message for cowboy mode: ${isCowboyMode}`)
+          return [newInitialMessage, ...currentMessages.slice(1)]
+        }
+      }
+      return currentMessages
+    })
+  }, [isCowboyMode, setMessages])
 
-    // Call the AI SDK's handleSubmit
-    originalHandleSubmit(e)
-  }
+  // Enhanced handleSubmit with debugging
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      console.log("\n🎯 === FRONTEND SUBMIT ===")
+      console.log(`🚀 Input: "${input}"`)
+      console.log(`📊 Current messages: ${messages.length}`)
+      console.log(`⏳ Loading: ${isLoading}`)
+      console.log(`🤠 Cowboy mode: ${isCowboyMode}`)
 
-  const toggleMinimized = () => {
-    setIsMinimized(!isMinimized)
-  }
+      if (!input.trim() || isLoading) {
+        console.log("❌ Submission blocked")
+        return
+      }
 
-  const toggleDocked = () => {
-    setIsDocked(!isDocked)
-  }
+      const thinkingPhrase = getRandomThinkingPhrase(isCowboyMode)
+      setCurrentThinkingPhrase(thinkingPhrase)
+      console.log(`🤔 Thinking phrase: "${thinkingPhrase}"`)
 
-  const toggleSizeSelector = () => {
-    setShowSizeSelector(!showSizeSelector)
-  }
+      // Call the AI SDK's handleSubmit
+      originalHandleSubmit(e)
+    },
+    [input, isLoading, isCowboyMode, messages.length, originalHandleSubmit],
+  )
 
-  const selectSize = (size: "small" | "medium" | "large") => {
+  const toggleMinimized = useCallback(() => {
+    setIsMinimized((prev) => !prev)
+  }, [])
+
+  const toggleDocked = useCallback(() => {
+    setIsDocked((prev) => !prev)
+  }, [])
+
+  const toggleSizeSelector = useCallback(() => {
+    setShowSizeSelector((prev) => !prev)
+  }, [])
+
+  const selectSize = useCallback((size: "small" | "medium" | "large") => {
     setSizePreset(size)
     setShowSizeSelector(false)
-  }
+  }, [])
+
+  const toggleCowboyMode = useCallback(() => {
+    console.log("🎯 COWBOY TOGGLE CLICKED!")
+    console.log(`🤠 Current cowboy mode: ${isCowboyMode}`)
+
+    setIsCowboyMode((prev) => {
+      const newMode = !prev
+      console.log(`🤠 Cowboy mode toggled from ${prev} to ${newMode}`)
+      return newMode
+    })
+  }, [isCowboyMode])
+
+  // Debug log current state
+  useEffect(() => {
+    console.log(`🐛 Current state - Cowboy mode: ${isCowboyMode}`)
+  }, [isCowboyMode])
 
   return {
     messages,
@@ -117,9 +183,11 @@ export function useChatState() {
     sizePreset,
     showSizeSelector,
     currentThinkingPhrase,
+    isCowboyMode,
     toggleMinimized,
     toggleDocked,
     toggleSizeSelector,
     selectSize,
+    toggleCowboyMode,
   }
 }

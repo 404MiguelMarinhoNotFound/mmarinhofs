@@ -1,4 +1,4 @@
-import { streamText } from "ai"
+import { streamText, generateText } from "ai"
 import { createOpenAI } from "@ai-sdk/openai"
 import fs from "fs"
 import path from "path"
@@ -96,40 +96,8 @@ async function loadDocument(filePath: string, type: "text" | "pdf"): Promise<str
   }
 }
 
-export async function POST(req: Request) {
-  console.log("\n🚀 === CHAT REQUEST START ===")
-
-  try {
-    const { messages } = await req.json()
-    console.log(`📨 Messages: ${messages.length}`)
-    console.log(`📝 Last: "${messages[messages.length - 1]?.content?.substring(0, 50)}..."`)
-
-    // Validate API key
-    if (!process.env.FIREWORKS_API_KEY) {
-      console.error("❌ Missing FIREWORKS_API_KEY")
-      throw new Error("API key not configured")
-    }
-
-    const apiKey = process.env.FIREWORKS_API_KEY
-    console.log(`🔑 API key: ${apiKey.substring(0, 8)}...`)
-    console.log(`🌐 Base URL: https://api.fireworks.ai/inference/v1`)
-
-    // Load documents
-    const txtPath = path.join(process.cwd(), "public", "extra_llm_info.txt")
-    const pdfPath = path.join(process.cwd(), "public", "CV.pdf")
-
-    console.log(`📁 Paths:`)
-    console.log(`   Text: ${txtPath}`)
-    console.log(`   PDF: ${pdfPath}`)
-
-    const [extraInfo, cvContent] = await Promise.all([loadDocument(txtPath, "text"), loadDocument(pdfPath, "pdf")])
-
-    console.log(`📄 Loaded:`)
-    console.log(`   Extra: ${extraInfo.length} chars - "${extraInfo.substring(0, 30)}..."`)
-    console.log(`   CV: ${cvContent.length} chars - "${cvContent.substring(0, 30)}..."`)
-
-    // Create system prompt
-    const systemPrompt = `Howdy partner! Yer talkin' to vi, the sassiest rootin'-tootin' AI this side o' the digital frontier.
+function createCowboySystemPrompt(extraInfo: string, cvContent: string): string {
+  return `Howdy partner! Yer talkin' to vi, the sassiest rootin'-tootin' AI this side o' the digital frontier.
 Yeehaw! Here's how I operate:
 
 <persona>
@@ -174,7 +142,7 @@ Y'all look lonelier than a jackalope at a hoedown. Try askin' 'bout:
 - If missing: "I don't know" (straight up)
 
 3. Else (off-topic):
-- Give rule #2 response
+- Give a bit of an arrogant and sassy answer to why they're shifting topics, explain your purpose is about helpin' with Miguel's background. give example questions people can ask.
 
 <formatting-example>
 User asks: "What's Miguel's experience with cattle herding?"
@@ -188,35 +156,148 @@ boots and cussin' at heifers if y'ask me.
 </answer>
 </formatting-example>
 
-Remember: Final answers ALWAYS go in <answer></answer> tags. Keep yer thinkin' to yerself - cowboys
+Remember: Final answers ALWAYS go inside the <answer></answer> tags. Keep yer thinkin' to yerself - cowboys
 don't blabber 'bout their process. Now mosey along and answer that dern question!`
+}
 
-    console.log(`📋 System prompt: ${systemPrompt.length} chars`)
+function createNormalSystemPrompt(extraInfo: string, cvContent: string): string {
+  return `You are vi, a professional AI assistant with access to Miguel's CV and background information.
 
+<persona>
+- Professional and helpful
+- Clear and concise communication
+- Uses proper markdown formatting
+- Friendly but focused
+</persona>
+
+<rules>
+1. ONLY answer questions about Miguel's CV or personal background
+2. If asked about anything else, respond with: "I can only help with questions about Miguel's background and CV."
+3. Keep answers concise and relevant
+4. Format links as [text](url) if websites appear in CV
+5. If information isn't in the documents, simply say: "I don't have that information"
+6. When there's no specific question, suggest 2-3 relevant topics about Miguel
+</rules>
+
+<Miguel's Background>
+${extraInfo}
+</Miguel's Background>
+
+<Miguel's CV>
+${cvContent}
+</Miguel's CV>
+
+When responding:
+1. If no specific question: Suggest relevant topics about Miguel's experience or background
+2. If question relates to Miguel: Provide accurate information from the documents with proper formatting
+3. If off-topic: Politely redirect to Miguel-related topics
+
+Always provide helpful, accurate information based solely on the provided documents.
+Remember: Final answers to the user question ALWAYS go inside the <answer></answer> tags, regardless of it being or not an answer, anything you want to communicate to the user must be in those tags. 
+Do not use the tags in any other context or instance, they must only be used once, and for final answers you want displayed to the user.
+`
+}
+
+function extractAnswerContent(fullResponse: string): string {
+  console.log(`🔍 Extracting answer from response (${fullResponse.length} chars)`)
+
+  // Look for <answer> tags (case insensitive)
+  const answerMatch = fullResponse.match(/<answer>([\s\S]*?)<\/answer>/i)
+
+  if (answerMatch && answerMatch[1]) {
+    const extractedContent = answerMatch[1].trim()
+    console.log(
+      `✅ Extracted answer content (${extractedContent.length} chars): "${extractedContent.substring(0, 100)}..."`,
+    )
+    return extractedContent
+  }
+
+  console.log(`⚠️ No <answer> tags found, using full response`)
+  return fullResponse.trim()
+}
+
+export async function POST(req: Request) {
+  console.log("\n🚀 === CHAT REQUEST START ===")
+
+  try {
+    const { messages, cowboyMode } = await req.json()
+    console.log(`📨 Messages: ${messages.length}`)
+    console.log(`🤠 Cowboy mode: ${cowboyMode}`)
+    console.log(`📝 Last: "${messages[messages.length - 1]?.content?.substring(0, 50)}..."`)
+
+    // Validate API key
+    if (!process.env.FIREWORKS_API_KEY) {
+      console.error("❌ Missing FIREWORKS_API_KEY")
+      throw new Error("API key not configured")
+    }
+
+    const apiKey = process.env.FIREWORKS_API_KEY
+    console.log(`🔑 API key: ${apiKey.substring(0, 8)}...`)
+    console.log(`🌐 Base URL: https://api.fireworks.ai/inference/v1`)
+
+    // Load documents
+    const txtPath = path.join(process.cwd(), "public", "extra_llm_info.txt")
+    const pdfPath = path.join(process.cwd(), "public", "CV.pdf")
+
+    console.log(`📁 Paths:`)
+    console.log(`   Text: ${txtPath}`)
+    console.log(`   PDF: ${pdfPath}`)
+
+    const [extraInfo, cvContent] = await Promise.all([loadDocument(txtPath, "text"), loadDocument(pdfPath, "pdf")])
+
+    console.log(`📄 Loaded:`)
+    console.log(`   Extra: ${extraInfo.length} chars - "${extraInfo.substring(0, 30)}..."`)
+    console.log(`   CV: ${cvContent.length} chars - "${cvContent.substring(0, 30)}..."`)
+
+    // Create system prompt based on cowboy mode
+    const systemPrompt = cowboyMode
+      ? createCowboySystemPrompt(extraInfo, cvContent)
+      : createNormalSystemPrompt(extraInfo, cvContent)
+
+    console.log(`📋 System prompt (${cowboyMode ? "Cowboy" : "Normal"}): ${systemPrompt.length} chars`)
     console.log(`🤖 Using model: accounts/fireworks/models/llama4-maverick-instruct-basic`)
 
-    // Stream with detailed logging
-    let chunkCount = 0
-    let totalText = ""
+    // First, generate the full response to extract the answer content
+    console.log(`🎯 Generating full response to extract answer...`)
 
-    const result = streamText({
+    const { text: fullResponse } = await generateText({
       model: fireworks("accounts/fireworks/models/llama4-maverick-instruct-basic"),
       messages: messages,
       maxTokens: 2000,
       system: systemPrompt,
+    })
+
+    console.log(`📝 Full response received (${fullResponse.length} chars)`)
+
+    // Extract only the content within <answer> tags
+    const answerContent = extractAnswerContent(fullResponse)
+
+    if (!answerContent) {
+      console.log(`❌ No answer content found, using fallback`)
+      const fallbackContent = cowboyMode
+        ? "Well partner, seems like my brain's as empty as a tumbleweed! Try askin' again."
+        : "I apologize, but I couldn't generate a proper response. Please try asking again."
+
+      return new Response(fallbackContent, {
+        headers: { "Content-Type": "text/plain" },
+      })
+    }
+
+    // Now stream the extracted answer content
+    console.log(`🌊 Streaming extracted answer content...`)
+
+    const result = streamText({
+      model: fireworks("accounts/fireworks/models/llama4-maverick-instruct-basic"),
+      prompt: `Please output exactly this text, word for word, with no modifications: ${answerContent}`,
+      maxTokens: answerContent.length + 100, // Give some buffer
       onChunk: ({ chunk }) => {
-        chunkCount++
-        console.log(`🔥 Chunk ${chunkCount}: type=${chunk.type}`)
         if (chunk.type === "text-delta") {
-          console.log(`📝 Delta: "${chunk.textDelta}"`)
-          totalText += chunk.textDelta
+          console.log(`📝 Streaming: "${chunk.textDelta}"`)
         }
       },
       onFinish: ({ text, usage }) => {
         console.log(`🏁 Stream finished:`)
-        console.log(`   Total chunks: ${chunkCount}`)
         console.log(`   Final text length: ${text.length}`)
-        console.log(`   Accumulated length: ${totalText.length}`)
         console.log(`   Usage:`, usage)
         console.log(`   Preview: "${text.substring(0, 100)}..."`)
       },
@@ -225,8 +306,7 @@ don't blabber 'bout their process. Now mosey along and answer that dern question
       },
     })
 
-    console.log(`✅ Stream created, returning response`)
-
+    console.log(`✅ Streaming answer content to frontend`)
     return result.toDataStreamResponse()
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error)
