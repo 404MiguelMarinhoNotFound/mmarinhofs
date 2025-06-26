@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import type { Message } from "ai"
 
@@ -18,38 +17,6 @@ const getRandomThinkingPhrase = () => {
   return thinkingPhrases[Math.floor(Math.random() * thinkingPhrases.length)]
 }
 
-// Function to extract content from <answer> tags in real-time
-const extractAnswerContentRealTime = (text: string): { content: string; hasAnswer: boolean } => {
-  console.log("🔍 Extracting from text length:", text.length)
-
-  // Find the opening answer tag
-  const openingTagMatch = text.match(/<answer[^>]*>/i)
-  if (!openingTagMatch) {
-    console.log("❌ No opening answer tag found")
-    return { content: "", hasAnswer: false }
-  }
-
-  const openingTagEnd = openingTagMatch.index! + openingTagMatch[0].length
-
-  // Find the closing answer tag
-  const closingTagMatch = text.match(/<\/answer>/i)
-
-  let answerContent: string
-
-  if (closingTagMatch) {
-    // We have both opening and closing tags - extract only what's between them
-    const closingTagStart = closingTagMatch.index!
-    answerContent = text.substring(openingTagEnd, closingTagStart).trim()
-    console.log("✅ Found complete answer tags, extracted content:", answerContent)
-  } else {
-    // We only have opening tag (streaming in progress) - extract from opening tag to end
-    answerContent = text.substring(openingTagEnd).trim()
-    console.log("⏳ Found opening tag only, partial content:", answerContent.substring(0, 50) + "...")
-  }
-
-  return { content: answerContent, hasAnswer: true }
-}
-
 export function useChatState() {
   const [isDocked, setIsDocked] = useState(true)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -59,7 +26,8 @@ export function useChatState() {
     {
       id: Date.now().toString(),
       role: "assistant",
-      content: "Yer talkin' to vi, the sharpest tongue in the digital corral. What can I rustle up for ya?",
+      content:
+        "Howdy! I'm vi, your AI assistant with access to your CV and additional context. Ask me anything about the documents!",
     },
   ])
   const [input, setInput] = useState("")
@@ -80,6 +48,7 @@ export function useChatState() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("\n🎯 === FRONTEND CHAT SUBMIT ===")
     console.log("🚀 Form submitted with input:", input)
 
     if (!input.trim() || isLoading) {
@@ -94,10 +63,15 @@ export function useChatState() {
     }
 
     console.log("📝 Adding user message:", userMessage)
-    setMessages((prev) => [...prev, userMessage])
+    setMessages((prev) => {
+      console.log(`📊 Previous messages count: ${prev.length}`)
+      return [...prev, userMessage]
+    })
     setInput("")
     setIsLoading(true)
-    setCurrentThinkingPhrase(getRandomThinkingPhrase())
+    const thinkingPhrase = getRandomThinkingPhrase()
+    setCurrentThinkingPhrase(thinkingPhrase)
+    console.log(`🤔 Set thinking phrase: "${thinkingPhrase}"`)
 
     // Create assistant message
     const assistantMessage: Message = {
@@ -109,28 +83,32 @@ export function useChatState() {
     console.log("🤖 Adding assistant message placeholder:", assistantMessage)
     setMessages((prev) => [...prev, assistantMessage])
 
-    // Track raw content separately
-    let rawContent = ""
-
     try {
       console.log("🌐 Making API call to /api/chat")
+      const requestBody = {
+        messages: [...messages, userMessage],
+      }
+      console.log("📤 Request body:", JSON.stringify(requestBody, null, 2))
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          messages: [...messages, userMessage],
-        }),
+        body: JSON.stringify(requestBody),
       })
 
       console.log("📡 API Response status:", response.status, response.statusText)
+      console.log("📡 Response headers:", Object.fromEntries(response.headers.entries()))
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        const errorText = await response.text()
+        console.error("❌ HTTP error response:", errorText)
+        throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`)
       }
 
       if (!response.body) {
+        console.error("❌ No response body")
         throw new Error("No response body")
       }
 
@@ -138,60 +116,60 @@ export function useChatState() {
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
 
+      let accumulatedContent = ""
+      let chunkCount = 0
+
       // Read the stream
       while (true) {
         const { done, value } = await reader.read()
+        chunkCount++
+
         if (done) {
-          console.log("✅ Stream reading completed")
+          console.log(`✅ Stream reading completed after ${chunkCount} chunks`)
+          console.log(`📝 Final accumulated content length: ${accumulatedContent.length}`)
+          console.log(`📝 Final content preview: "${accumulatedContent.substring(0, 200)}..."`)
           break
         }
 
         const chunk = decoder.decode(value)
-        console.log("📦 Received chunk:", chunk)
+        console.log(`📦 Chunk ${chunkCount} received (${chunk.length} chars):`, chunk)
 
         const lines = chunk.split("\n")
+        console.log(`📄 Split into ${lines.length} lines`)
 
         for (const line of lines) {
-          if (line.startsWith("data: ")) {
-            const data = line.slice(6).trim()
+          console.log(`🔍 Processing line: "${line}"`)
+
+          // Handle different AI SDK stream formats
+          if (line.startsWith("0:")) {
+            // Format: 0:{"type":"text-delta","textDelta":"content"}
+            const data = line.slice(2).trim()
             if (!data) {
+              console.log("⏭️ Skipping empty 0: line")
               continue
             }
 
+            console.log(`🔍 Processing 0: data: ${data}`)
+
             try {
               const parsed = JSON.parse(data)
+              console.log(`✅ Parsed JSON type: ${parsed.type}`)
 
-              if (parsed.type === "content" && parsed.content) {
-                // Add to raw content buffer
-                rawContent += parsed.content
-
-                // Extract answer content in real-time
-                const { content: answerContent, hasAnswer } = extractAnswerContentRealTime(rawContent)
+              if (parsed.type === "text-delta" && parsed.textDelta) {
+                console.log(`📝 Text delta received: "${parsed.textDelta}"`)
+                accumulatedContent += parsed.textDelta
 
                 setMessages((prev) => {
                   return prev.map((msg) => {
                     if (msg.id === assistantMessage.id) {
-                      // Only show answer content if we have answer tags, otherwise keep empty for thinking phrase
-                      return { ...msg, content: hasAnswer ? answerContent : "" }
+                      console.log(`🔄 Updating message content (${accumulatedContent.length} chars)`)
+                      return { ...msg, content: accumulatedContent }
                     }
                     return msg
                   })
                 })
-              } else if (parsed.type === "done") {
-                console.log("🏁 Stream completed")
-
-                // Final extraction to ensure we only have answer content
-                const { content: finalAnswerContent } = extractAnswerContentRealTime(rawContent)
-
-                setMessages((prev) => {
-                  return prev.map((msg) => {
-                    if (msg.id === assistantMessage.id) {
-                      return { ...msg, content: finalAnswerContent }
-                    }
-                    return msg
-                  })
-                })
-
+              } else if (parsed.type === "finish") {
+                console.log("🏁 Stream completed with finish signal")
                 setIsLoading(false)
                 return
               } else if (parsed.type === "error") {
@@ -203,15 +181,106 @@ export function useChatState() {
                 )
                 setIsLoading(false)
                 return
+              } else {
+                console.log(`ℹ️ Unhandled 0: message type: ${parsed.type}`, parsed)
               }
             } catch (parseError) {
-              console.error("🚫 Failed to parse SSE data:", parseError, "Data:", data)
+              console.error("🚫 Failed to parse 0: data:", parseError, "Data:", data)
             }
+          } else if (line.startsWith("data: ")) {
+            // Format: data: {"type":"text-delta","textDelta":"content"}
+            const data = line.slice(6).trim()
+            if (!data || data === "[DONE]") {
+              console.log("⏭️ Skipping empty or DONE data line")
+              continue
+            }
+
+            console.log(`🔍 Processing data: line: ${data}`)
+
+            try {
+              const parsed = JSON.parse(data)
+              console.log(`✅ Parsed data: JSON type: ${parsed.type}`)
+
+              if (parsed.type === "text-delta" && parsed.textDelta) {
+                console.log(`📝 Data text delta received: "${parsed.textDelta}"`)
+                accumulatedContent += parsed.textDelta
+
+                setMessages((prev) => {
+                  return prev.map((msg) => {
+                    if (msg.id === assistantMessage.id) {
+                      console.log(`🔄 Updating message content (${accumulatedContent.length} chars)`)
+                      return { ...msg, content: accumulatedContent }
+                    }
+                    return msg
+                  })
+                })
+              } else if (parsed.type === "finish") {
+                console.log("🏁 Data stream completed with finish signal")
+                setIsLoading(false)
+                return
+              } else if (parsed.type === "error") {
+                console.error("❌ Data stream error:", parsed.error)
+                setMessages((prev) =>
+                  prev.map((msg) =>
+                    msg.id === assistantMessage.id ? { ...msg, content: "[Error: " + parsed.error + "]" } : msg,
+                  ),
+                )
+                setIsLoading(false)
+                return
+              } else {
+                console.log(`ℹ️ Unhandled data: message type: ${parsed.type}`, parsed)
+              }
+            } catch (parseError) {
+              console.error("🚫 Failed to parse data: line:", parseError, "Data:", data)
+            }
+          } else if (line.trim() && !line.startsWith("event:") && !line.startsWith("id:")) {
+            // Try to parse as direct JSON (some formats)
+            console.log(`🔍 Trying to parse as direct JSON: ${line}`)
+            try {
+              const parsed = JSON.parse(line)
+              console.log(`✅ Parsed direct JSON type: ${parsed.type}`)
+
+              if (parsed.type === "text-delta" && parsed.textDelta) {
+                console.log(`📝 Direct text delta received: "${parsed.textDelta}"`)
+                accumulatedContent += parsed.textDelta
+
+                setMessages((prev) => {
+                  return prev.map((msg) => {
+                    if (msg.id === assistantMessage.id) {
+                      console.log(`🔄 Updating message content (${accumulatedContent.length} chars)`)
+                      return { ...msg, content: accumulatedContent }
+                    }
+                    return msg
+                  })
+                })
+              } else if (parsed.type === "finish") {
+                console.log("🏁 Direct stream completed with finish signal")
+                setIsLoading(false)
+                return
+              }
+            } catch (parseError) {
+              console.log(`ℹ️ Line not JSON, skipping: ${line}`)
+            }
+          } else if (line.trim()) {
+            console.log(`ℹ️ Other line type: ${line}`)
           }
         }
       }
+
+      // If we get here without any content, there might be an issue
+      if (accumulatedContent.length === 0) {
+        console.warn("⚠️ No content accumulated from stream")
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === assistantMessage.id
+              ? { ...msg, content: "Stream completed but no content received. Check server logs." }
+              : msg,
+          ),
+        )
+      }
     } catch (error) {
       console.error("💥 Chat error:", error)
+      console.error("Stack trace:", error.stack)
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === assistantMessage.id
@@ -220,6 +289,7 @@ export function useChatState() {
         ),
       )
     } finally {
+      console.log("🔄 Setting loading to false")
       setIsLoading(false)
     }
   }
