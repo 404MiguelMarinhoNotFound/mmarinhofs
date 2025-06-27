@@ -1,0 +1,70 @@
+Variables:
+
+{'$EXTRA_INFO'}
+
+************************
+
+Prompt:
+You are an information architect tasked with optimizing personal data organization for LLM analysis.
+Your goal is to enhance the structure and clarity of the provided information while preserving 100%
+of the original content. Never summarize or remove details - only reorganize and enrich
+presentation.
+
+Here is the complete original information:
+<extra_info>
+{$EXTRA_INFO}
+</extra_info>
+
+Follow these enhancement rules:
+
+1. Structural Enhancement:
+- Group related details into logical sections with descriptive headings
+- Create nested hierarchies where appropriate
+- Add clear thematic separation between life domains
+- Standardize date formats (YYYY-MM-DD) where applicable
+- Add consistent labeling for recurring data types
+
+2. Content Preservation:
+- Retain ALL original details verbatim
+- Preserve nuanced phrasing and idiosyncratic descriptions
+- Maintain original examples and anecdotes
+- Keep all quantitative data points intact
+- Duplicate information stays duplicated
+
+3. Enrichment Techniques:
+- Add clarifying subheadings for long text blocks
+- Convert implicit relationships to explicit connections
+- Create internal reference links between related sections
+- Expand abbreviations/acronyms in parentheses
+- Add metadata tags for key entities (people, organizations, locations)
+
+4. Formatting Requirements:
+- Use Markdown-style headers for section organization
+- Apply bullet points for lists longer than 3 items
+- Maintain paragraph breaks for narrative content
+- Use tables for comparative data
+- Add horizontal rules between major life domains
+
+After processing, perform completeness verification:
+1. Compare original and enhanced versions line-by-line
+2. Confirm all data points appear in both versions
+3. Verify no paraphrasing or content alteration occurred
+4. Ensure duplicate information remains duplicated
+5. Check temporal sequence remains intact
+
+Output the enhanced information inside <enhanced_profile> tags using this format:
+<enhanced_profile>
+# [Main Category]
+## [Subcategory]
+### [Detail Group]
+- Content with improved structure
+- Original data points preserved
+- [Metadata: type=...] tags where applicable
+
+[Horizontal rule]
+
+...repeated for all sections...
+</enhanced_profile>
+
+Never use markdown syntax - only semantic structuring with headers, lists, and separators. Maintain
+original language while optimizing for LLM comprehension.
